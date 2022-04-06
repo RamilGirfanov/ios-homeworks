@@ -18,8 +18,19 @@ class PostViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .yellow
+        makeBarItem()
 
     }
     
-
+    private func makeBarItem(){
+        let barItem = UIBarButtonItem(title: "Инфо", style: .plain, target: self, action: #selector(tap))
+        navigationItem.rightBarButtonItem = barItem
+    }
+    
+    @objc private func tap() {
+        let infoVC = InfoViewController()
+        infoVC.title = "Инфо"
+        present(infoVC, animated: true)
+    }
+    
 }

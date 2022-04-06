@@ -14,6 +14,7 @@
 		744F212727FC281D00E825E9 /* MainTabBarControllerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 744F212627FC281D00E825E9 /* MainTabBarControllerViewController.swift */; };
 		744F212927FC2F0B00E825E9 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 744F212827FC2F0B00E825E9 /* ProfileViewController.swift */; };
 		744F212B27FC5AA600E825E9 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 744F212A27FC5AA600E825E9 /* PostViewController.swift */; };
+		744F212D27FD6ABA00E825E9 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 744F212C27FD6ABA00E825E9 /* InfoViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		744F212627FC281D00E825E9 /* MainTabBarControllerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarControllerViewController.swift; sourceTree = "<group>"; };
 		744F212827FC2F0B00E825E9 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		744F212A27FC5AA600E825E9 /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
+		744F212C27FD6ABA00E825E9 /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +64,7 @@
 				744F212627FC281D00E825E9 /* MainTabBarControllerViewController.swift */,
 				744F212427FC252C00E825E9 /* FeedViewController.swift */,
 				744F212A27FC5AA600E825E9 /* PostViewController.swift */,
+				744F212C27FD6ABA00E825E9 /* InfoViewController.swift */,
 				744F212827FC2F0B00E825E9 /* ProfileViewController.swift */,
 				744F211927FC1FBB00E825E9 /* Assets.xcassets */,
 				744F211B27FC1FBB00E825E9 /* LaunchScreen.storyboard */,
@@ -144,6 +147,7 @@
 				744F212527FC252C00E825E9 /* FeedViewController.swift in Sources */,
 				744F211127FC1FBA00E825E9 /* AppDelegate.swift in Sources */,
 				744F212727FC281D00E825E9 /* MainTabBarControllerViewController.swift in Sources */,
+				744F212D27FD6ABA00E825E9 /* InfoViewController.swift in Sources */,
 				744F212B27FC5AA600E825E9 /* PostViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
