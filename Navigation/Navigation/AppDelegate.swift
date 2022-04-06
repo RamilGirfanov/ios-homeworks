@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //      Присваиваем размер окна
         window = UIWindow(frame: UIScreen.main.bounds)
 //        Присваиваем стартовый экран
-        window?.rootViewController = FirstViewController()
+        window?.rootViewController = MainTabBarControllerViewController()
         window?.makeKeyAndVisible()
         
         return true

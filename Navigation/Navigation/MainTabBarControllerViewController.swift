@@ -9,21 +9,25 @@ import UIKit
 
 class MainTabBarControllerViewController: UITabBarController {
 
+    let feedVC = FeedViewController()
+    let profileVC = ProfileViewController()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        setupController()
     }
-    
 
-    /*
-    // MARK: - Navigation
+    private func setupController() {
+        let firstNC = UINavigationController(rootViewController: feedVC)
+        let secondNC = UINavigationController(rootViewController: profileVC)
+        firstNC.tabBarItem.title = "Лента"
+        firstNC.tabBarItem.image = UIImage(systemName: "newspaper")
+        secondNC.tabBarItem.title = "Профиль"
+        secondNC.tabBarItem.image = UIImage(systemName: "person")
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        viewControllers = [firstNC, secondNC]
+        
     }
-    */
+
 
 }
