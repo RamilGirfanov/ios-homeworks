@@ -11,15 +11,18 @@ class ProfileViewController: UIViewController {
     
     let PHView = ProfileHeaderView()
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .lightGray
         view.addSubview(PHView)
+        PHView.setupPHView()
     }
     
     override func viewWillLayoutSubviews() {
         PHView.frame = view.frame
     }
     
+
     
 }
