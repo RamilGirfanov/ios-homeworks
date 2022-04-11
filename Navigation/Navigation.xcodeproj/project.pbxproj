@@ -64,13 +64,21 @@
 				744F212627FC281D00E825E9 /* MainTabBarControllerViewController.swift */,
 				744F212427FC252C00E825E9 /* FeedViewController.swift */,
 				744F212A27FC5AA600E825E9 /* PostViewController.swift */,
-				744F212C27FD6ABA00E825E9 /* InfoViewController.swift */,
+				74997C112803B00E001E0351 /* Profile */,
 				744F212827FC2F0B00E825E9 /* ProfileViewController.swift */,
 				744F211927FC1FBB00E825E9 /* Assets.xcassets */,
 				744F211B27FC1FBB00E825E9 /* LaunchScreen.storyboard */,
 				744F211E27FC1FBB00E825E9 /* Info.plist */,
 			);
 			path = Navigation;
+			sourceTree = "<group>";
+		};
+		74997C112803B00E001E0351 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				744F212C27FD6ABA00E825E9 /* InfoViewController.swift */,
+			);
+			path = Profile;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
