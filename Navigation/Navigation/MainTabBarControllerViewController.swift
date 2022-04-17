@@ -24,10 +24,8 @@ class MainTabBarControllerViewController: UITabBarController {
         firstNC.tabBarItem.image = UIImage(systemName: "newspaper")
         secondNC.tabBarItem.title = "Профиль"
         secondNC.tabBarItem.image = UIImage(systemName: "person")
+        profileVC.navigationItem.title = "Profile"
 
         viewControllers = [firstNC, secondNC]
-        
     }
-
-
 }
