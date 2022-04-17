@@ -9,40 +9,86 @@ import UIKit
 
 class ProfileHeaderView: UIView {
     
-    let imageView = UIImageView()
+    let avatarImageView: UIImageView = {
+        let avatarImageView = UIImageView()
+        
+        avatarImageView.image = UIImage(named: "profileImage")
+        avatarImageView.layer.borderWidth = 3
+        avatarImageView.layer.borderColor = UIColor.white.cgColor
+        avatarImageView.layer.cornerRadius = 75
+        avatarImageView.clipsToBounds = true
+        avatarImageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return avatarImageView
+    }()
+    
+    let fullNameLabel: UILabel = {
+        let fullNameLabel = UILabel()
+        
+        fullNameLabel.text = "Рамиль Гирфанов"
+        fullNameLabel.textColor = .black
+        fullNameLabel.font = .systemFont(ofSize: 18, weight: .bold)
+        fullNameLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        return fullNameLabel
+    }()
+    
+    let statusLabel: UILabel = {
+        let statusLabel = UILabel()
+        
+        statusLabel.text = "Waiting for something..."
+        statusLabel.textColor = .gray
+        statusLabel.font = .systemFont(ofSize: 14, weight: .regular)
+        statusLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        return statusLabel
+    }()
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     private func setupImageView() {
-        superview?.addSubview(imageView)
+        superview?.addSubview(avatarImageView)
         
-        imageView.image = UIImage(named: "profileImage")
-        imageView.layer.borderWidth = 3
-        imageView.layer.borderColor = UIColor.white.cgColor
-        imageView.layer.cornerRadius = 75
-        imageView.clipsToBounds = true
-        
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        let leftConstr = imageView.leftAnchor.constraint(equalTo: superview!.safeAreaLayoutGuide.leftAnchor, constant: 16)
-        let topConstr = imageView.topAnchor.constraint(equalTo: superview!.safeAreaLayoutGuide.topAnchor, constant: 16)
-        let heighConstr = imageView.heightAnchor.constraint(equalToConstant: 150)
-        let widthConstr = imageView.widthAnchor.constraint(equalToConstant: 150)
-        NSLayoutConstraint.activate([leftConstr, topConstr, heighConstr, widthConstr])
+        NSLayoutConstraint.activate([
+            avatarImageView.leftAnchor.constraint(equalTo: superview!.safeAreaLayoutGuide.leftAnchor, constant: 16),
+            avatarImageView.topAnchor.constraint(equalTo: superview!.safeAreaLayoutGuide.topAnchor, constant: 16),
+            avatarImageView.heightAnchor.constraint(equalToConstant: 150),
+            avatarImageView.widthAnchor.constraint(equalToConstant: 150)
+        ])
     }
-    
-    
-    let nameLabel = UILabel()
     
     private func setupNameLabel() {
-        superview?.addSubview(nameLabel)
+        superview?.addSubview(fullNameLabel)
         
-        nameLabel.text = "Рамиль Гирфанов"
-        nameLabel.textColor = .black
-        nameLabel.font = .systemFont(ofSize: 18, weight: .bold)
-        
-        nameLabel.translatesAutoresizingMaskIntoConstraints = false
-        let topConstr = nameLabel.topAnchor.constraint(equalTo: superview!.safeAreaLayoutGuide.topAnchor, constant: 27)
-        let leftConstr = nameLabel.leftAnchor.constraint(equalTo: imageView.rightAnchor, constant: 16)
-        NSLayoutConstraint.activate([topConstr, leftConstr])
+        NSLayoutConstraint.activate([
+            fullNameLabel.topAnchor.constraint(equalTo: superview!.safeAreaLayoutGuide.topAnchor, constant: 27),
+            fullNameLabel.leftAnchor.constraint(equalTo: avatarImageView.rightAnchor, constant: 16)
+        ])
     }
+    
+    private func setupSomeTextLabel() {
+        superview?.addSubview(statusLabel)
+        
+        NSLayoutConstraint.activate([
+            statusLabel.leftAnchor.constraint(equalTo: avatarImageView.rightAnchor, constant: 16),
+            statusLabel.bottomAnchor.constraint(equalTo: statusButton.topAnchor, constant: -34)
+        ])
+    }
+    
+    
+    
     
     let statusButton = UIButton()
     
@@ -63,35 +109,24 @@ class ProfileHeaderView: UIView {
         let heighConstr = statusButton.heightAnchor.constraint(equalToConstant: 50)
         let leftConstr = statusButton.leftAnchor.constraint(equalTo: superview!.safeAreaLayoutGuide.leftAnchor, constant: 16)
         let rightConstr = statusButton.rightAnchor.constraint(equalTo: superview!.safeAreaLayoutGuide.rightAnchor, constant: -16)
-        let topConstr = statusButton.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 16)
+        let topConstr = statusButton.topAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: 16)
         NSLayoutConstraint.activate([heighConstr, leftConstr, rightConstr, topConstr])
         
         statusButton.addTarget(self, action: #selector(tap), for: .touchUpInside)
     }
     
     @objc private func tap() {
-        print(someTextLabel.text ?? "Что-то не сработало")
+        print(statusLabel.text ?? "Что-то не сработало")
     }
     
-    let someTextLabel = UILabel()
-    
-    private func setupSomeTextLabel() {
-        superview?.addSubview(someTextLabel)
-        
-        someTextLabel.text = "Waiting for something..."
-        someTextLabel.textColor = .gray
-        someTextLabel.font = .systemFont(ofSize: 14, weight: .regular)
-        
-        someTextLabel.translatesAutoresizingMaskIntoConstraints = false
-        let leftConstr = someTextLabel.leftAnchor.constraint(equalTo: imageView.rightAnchor, constant: 16)
-        let bottomConstr = someTextLabel.bottomAnchor.constraint(equalTo: statusButton.topAnchor, constant: -34)
-        NSLayoutConstraint.activate([leftConstr, bottomConstr])
-    }
+
     
     func setupPHView() {
+        
         setupImageView()
         setupNameLabel()
         setupStatusButton()
         setupSomeTextLabel()
+        
     }
 }
