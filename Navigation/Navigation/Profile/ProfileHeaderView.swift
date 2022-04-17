@@ -28,6 +28,7 @@ class ProfileHeaderView: UIView {
         NSLayoutConstraint.activate([leftConstr, topConstr, heighConstr, widthConstr])
     }
     
+    
     let nameLabel = UILabel()
     
     private func setupNameLabel() {
