@@ -96,7 +96,7 @@ class ProfileHeaderView: UIView {
         
         NSLayoutConstraint.activate([
             avatarImageView.leftAnchor.constraint(equalTo: superview!.safeAreaLayoutGuide.leftAnchor, constant: 16),
-            avatarImageView.topAnchor.constraint(equalTo: superview!.safeAreaLayoutGuide.topAnchor, constant: 16),
+            avatarImageView.topAnchor.constraint(equalTo: superview!.safeAreaLayoutGuide.topAnchor, constant: 0),
             avatarImageView.heightAnchor.constraint(equalToConstant: 150),
             avatarImageView.widthAnchor.constraint(equalToConstant: 150)
         ])
@@ -172,10 +172,10 @@ class ProfileHeaderView: UIView {
     func setupPHView() {
         
         setupImageView()
-//        setupNameLabel()
         setupStatusButton()
-//        setupSomeTextLabel()
         setupStackView()
+        //setupSomeTextLabel()
+        //setupNameLabel()
         
     }
 }
