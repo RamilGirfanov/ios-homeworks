@@ -25,10 +25,29 @@ class ProfileViewController: UIViewController {
         ])
     }
     
+    let newButton: UIButton = {
+        let newButton = UIButton()
+        newButton.setTitle("I'm new button", for: .normal)
+        newButton.backgroundColor = .systemBlue
+        newButton.setTitleColor(.white, for: .normal)
+        return newButton
+    }()
+    
+    private func setupNewButton() {
+        view.addSubview(newButton)
+        
+        newButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            newButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
+            newButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 0),
+            newButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0)
+        ])
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .lightGray
         setupPHView()
+        setupNewButton()
     }
 }
