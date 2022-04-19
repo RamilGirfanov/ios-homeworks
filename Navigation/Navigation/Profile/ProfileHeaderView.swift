@@ -86,7 +86,7 @@ class ProfileHeaderView: UIView {
         setStatusButton.layer.shadowOpacity = 0.7
         setStatusButton.translatesAutoresizingMaskIntoConstraints = false
         
-        setStatusButton.addTarget(ProfileHeaderView.self, action: #selector(tap), for: .touchUpInside)
+        setStatusButton.addTarget(self, action: #selector(tap), for: .touchUpInside)
         
         return setStatusButton
     }()
