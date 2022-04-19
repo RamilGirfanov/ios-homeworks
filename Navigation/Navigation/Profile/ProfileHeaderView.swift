@@ -49,7 +49,7 @@ class ProfileHeaderView: UIView {
     let statusTextField: UITextField = {
         let statusTextField = UITextField()
         
-        statusTextField.text = " Set status"
+        statusTextField.placeholder = "Введите статус"
         statusTextField.textColor = .black
         statusTextField.font = .systemFont(ofSize: 15, weight: .regular)
         statusTextField.translatesAutoresizingMaskIntoConstraints = false
@@ -85,6 +85,8 @@ class ProfileHeaderView: UIView {
         setStatusButton.layer.shadowColor = UIColor.black.cgColor
         setStatusButton.layer.shadowOpacity = 0.7
         setStatusButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        setStatusButton.addTarget(ProfileHeaderView.self, action: #selector(tap), for: .touchUpInside)
         
         return setStatusButton
     }()
@@ -131,41 +133,10 @@ class ProfileHeaderView: UIView {
     }
     
     @objc private func tap() {
-        
-        
-        print(statusLabel.text ?? "Что-то не сработало")
+        statusLabel.text = statusTextField.text
+        statusTextField.text = ""
+        print("Статус установлен")
     }
-    
-    
-//    let statusButton = UIButton()
-    
-//    private func setupStatusButton() {
-//        superview?.addSubview(statusButton)
-//
-//        statusButton.setTitle("Show status", for: .normal)
-//        statusButton.setTitleColor(.white, for: .normal)
-//        statusButton.layer.cornerRadius = 4
-//        statusButton.backgroundColor = .systemBlue
-//
-//        statusButton.layer.shadowOffset = CGSize(width: 4, height: 4)
-//        statusButton.layer.shadowRadius = 4
-//        statusButton.layer.shadowColor = UIColor.black.cgColor
-//        statusButton.layer.shadowOpacity = 0.7
-//
-//        statusButton.translatesAutoresizingMaskIntoConstraints = false
-//        let heighConstr = statusButton.heightAnchor.constraint(equalToConstant: 50)
-//        let leftConstr = statusButton.leftAnchor.constraint(equalTo: superview!.safeAreaLayoutGuide.leftAnchor, constant: 16)
-//        let rightConstr = statusButton.rightAnchor.constraint(equalTo: superview!.safeAreaLayoutGuide.rightAnchor, constant: -16)
-//        let topConstr = statusButton.topAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: 16)
-//        NSLayoutConstraint.activate([heighConstr, leftConstr, rightConstr, topConstr])
-//
-//        statusButton.addTarget(self, action: #selector(tap), for: .touchUpInside)
-//    }
-//
-//    @objc private func tap() {
-//        print(statusLabel.text ?? "Что-то не сработало")
-//    }
-    
 
     // MARK: - apply settings
 
@@ -174,8 +145,5 @@ class ProfileHeaderView: UIView {
         setupImageView()
         setupStatusButton()
         setupStackView()
-        //setupSomeTextLabel()
-        //setupNameLabel()
-        
     }
 }
