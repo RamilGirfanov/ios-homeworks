@@ -11,18 +11,43 @@ class ProfileViewController: UIViewController {
     
     let PHView = ProfileHeaderView()
     
+    private func setupPHView() {
+        view.addSubview(PHView)
+        
+        PHView.setupPHView()
+        
+        PHView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            PHView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
+            PHView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
+            PHView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
+            PHView.heightAnchor.constraint(equalToConstant: 220)
+        ])
+    }
+    
+    let newButton: UIButton = {
+        let newButton = UIButton()
+        newButton.setTitle("I'm new button", for: .normal)
+        newButton.backgroundColor = .systemBlue
+        newButton.setTitleColor(.white, for: .normal)
+        return newButton
+    }()
+    
+    private func setupNewButton() {
+        view.addSubview(newButton)
+        
+        newButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            newButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
+            newButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 0),
+            newButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0)
+        ])
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .lightGray
-        view.addSubview(PHView)
-        PHView.setupPHView()
+        setupPHView()
+        setupNewButton()
     }
-    
-    override func viewWillLayoutSubviews() {
-        PHView.frame = view.frame
-    }
-    
-
-    
 }
