@@ -88,10 +88,11 @@ class ProfileHeaderView: UIView {
                 
         return setStatusButton
     }()
-    
+     
     // MARK: - setup UI objects
     
-    private func setupImageView() {
+    func setupPHView() {
+        
         superview?.addSubview(avatarImageView)
         
         NSLayoutConstraint.activate([
@@ -100,9 +101,7 @@ class ProfileHeaderView: UIView {
             avatarImageView.heightAnchor.constraint(equalToConstant: 150),
             avatarImageView.widthAnchor.constraint(equalToConstant: 150)
         ])
-    }
-    
-    private func setupStackView() {
+        
         superview?.addSubview(stackView)
         
         stackView.addArrangedSubview(fullNameLabel)
@@ -115,9 +114,7 @@ class ProfileHeaderView: UIView {
             stackView.trailingAnchor.constraint(equalTo: superview!.safeAreaLayoutGuide.trailingAnchor, constant: -16),
             stackView.bottomAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: 0)
         ])
-    }
-    
-    private func setupStatusButton() {
+        
         superview?.addSubview(setStatusButton)
         
         NSLayoutConstraint.activate([
@@ -134,14 +131,5 @@ class ProfileHeaderView: UIView {
         statusLabel.text = statusTextField.text
         statusTextField.text = ""
         print("Статус установлен")
-    }
-
-    // MARK: - apply settings
-
-    func setupPHView() {
-        
-        setupImageView()
-        setupStatusButton()
-        setupStackView()
     }
 }
