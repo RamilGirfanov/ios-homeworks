@@ -10,7 +10,7 @@ import UIKit
 class MainTabBarControllerViewController: UITabBarController {
 
     let feedVC = FeedViewController()
-    let profileVC = ProfileViewController()
+    let profileVC = LogInViewController()
     
     override func viewDidLoad() {
         super.viewDidLoad()

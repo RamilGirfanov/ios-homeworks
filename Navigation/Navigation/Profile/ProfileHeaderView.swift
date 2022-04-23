@@ -52,6 +52,7 @@ class ProfileHeaderView: UIView {
         statusTextField.placeholder = "Введите статус"
         statusTextField.textColor = .black
         statusTextField.font = .systemFont(ofSize: 15, weight: .regular)
+        statusTextField.borderStyle = .roundedRect
         statusTextField.translatesAutoresizingMaskIntoConstraints = false
         
         statusTextField.layer.borderWidth = 1
