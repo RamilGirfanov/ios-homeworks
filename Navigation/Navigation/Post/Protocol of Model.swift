@@ -10,7 +10,7 @@ import UIKit
 protocol PostModel {
     var author: String { get }
     var description: String { get }
-    var image: String { get }
+    var image: UIImage { get }
     var likes: Int { get }
     var views: Int { get }
 }
