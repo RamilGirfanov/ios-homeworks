@@ -28,13 +28,13 @@ class FeedViewController: UIViewController {
     
     @objc private func tap() {
         let postVC = PostViewController()
-        postVC.post = post
-        postVC.title = post.title
+        postVC.postTitle = postTitle
+        postVC.title = postTitle.title
         navigationController?.pushViewController(postVC, animated: true)
     }
 
 
     
-    let post = Post(title: "Заголовок")
+    let postTitle = PostTitle(title: "Заголовок")
     
 }
