@@ -19,11 +19,11 @@ class ProfileViewController: UIViewController {
     private func setupSelfView() {
         view.backgroundColor = .white
     }
-    
+        
 //    MARK: - Создание и настройка таблицы
     
     lazy var tableView: UITableView = {
-        let tableView = UITableView()
+        let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.dataSource = self
         tableView.delegate = self
@@ -48,44 +48,27 @@ class ProfileViewController: UIViewController {
 extension ProfileViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        return massive.count
+        massive.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: CustomTableViewCell.identifier, for: indexPath) as! CustomTableViewCell
         cell.fillingCell(post: massive[indexPath.row])
         return cell
+        
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        1
     }
 }
 
 extension ProfileViewController: UITableViewDelegate {
-    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        UITableView.automaticDimension
+    }
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let PHView = ProfileHeaderView()
+        return PHView
+    }
 }
-
-
-
-
-//MARK: - Удаленный код
-
-/*
-  
-     let PHView = ProfileHeaderView()
-
-     private func setupPHView() {
-         view.backgroundColor = .white
-         view.addSubview(PHView)
-
-         PHView.setupPHView()
-
-         PHView.translatesAutoresizingMaskIntoConstraints = false
-         
-         NSLayoutConstraint.activate([
-             PHView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
-             PHView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
-             PHView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
-             PHView.heightAnchor.constraint(equalToConstant: 220)
-         ])
-     }
- 
- */

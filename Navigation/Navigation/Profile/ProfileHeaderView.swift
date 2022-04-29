@@ -9,7 +9,7 @@ import UIKit
 
 class ProfileHeaderView: UIView {
     
-    // MARK: - create UI objects
+    // MARK: - Создание объектов
     
     let avatarImageView: UIImageView = {
         let avatarImageView = UIImageView()
@@ -90,41 +90,53 @@ class ProfileHeaderView: UIView {
         return setStatusButton
     }()
      
-    // MARK: - setup UI objects
+    // MARK: - Настройка объектов
     
     func setupPHView() {
-        
-        superview?.addSubview(avatarImageView)
-        superview?.addSubview(stackView)
-        superview?.addSubview(setStatusButton)
-        
-        stackView.addArrangedSubview(fullNameLabel)
-        stackView.addArrangedSubview(statusLabel)
-        stackView.addArrangedSubview(statusTextField)
-        
+        [avatarImageView, stackView, setStatusButton].forEach { addSubview($0) }
+        [fullNameLabel, statusLabel, statusTextField].forEach { stackView.addArrangedSubview($0) }
+         
         setStatusButton.addTarget(self, action: #selector(tap), for: .touchUpInside)
         
+        let constr: CGFloat = 16
+        let photoConstr: CGFloat = 150
+
         NSLayoutConstraint.activate([
-            avatarImageView.leftAnchor.constraint(equalTo: superview!.safeAreaLayoutGuide.leftAnchor, constant: 16),
-            avatarImageView.topAnchor.constraint(equalTo: superview!.safeAreaLayoutGuide.topAnchor, constant: 0),
-            avatarImageView.heightAnchor.constraint(equalToConstant: 150),
-            avatarImageView.widthAnchor.constraint(equalToConstant: 150),
+            avatarImageView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+            avatarImageView.leftAnchor.constraint(equalTo: safeAreaLayoutGuide.leftAnchor, constant: constr),
+            avatarImageView.heightAnchor.constraint(equalToConstant: photoConstr),
+            avatarImageView.widthAnchor.constraint(equalToConstant: photoConstr),
             
-            stackView.topAnchor.constraint(equalTo: avatarImageView.topAnchor, constant: 0),
-            stackView.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 16),
-            stackView.trailingAnchor.constraint(equalTo: superview!.safeAreaLayoutGuide.trailingAnchor, constant: -16),
-            stackView.bottomAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: 0),
+            stackView.topAnchor.constraint(equalTo: avatarImageView.topAnchor),
+            stackView.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: constr),
+            stackView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -constr),
+            stackView.bottomAnchor.constraint(equalTo: avatarImageView.bottomAnchor),
             
-            setStatusButton.heightAnchor.constraint(equalToConstant: 50),
-            setStatusButton.leftAnchor.constraint(equalTo: superview!.safeAreaLayoutGuide.leftAnchor, constant: 16),
-            setStatusButton.rightAnchor.constraint(equalTo: superview!.safeAreaLayoutGuide.rightAnchor, constant: -16),
-            setStatusButton.topAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: 16)
+            setStatusButton.topAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: constr),
+            setStatusButton.leftAnchor.constraint(equalTo: safeAreaLayoutGuide.leftAnchor, constant: constr),
+            setStatusButton.rightAnchor.constraint(equalTo: safeAreaLayoutGuide.rightAnchor, constant: -constr),
+            setStatusButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -constr),
+            setStatusButton.heightAnchor.constraint(equalToConstant: 50)
         ])
     }
+    
+//    MARK: - Настройка кнопки
     
     @objc private func tap() {
         statusLabel.text = statusTextField.text
         statusTextField.text = ""
         print("Статус установлен")
     }
+    
+//    MARK: - Инициализатор
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupPHView()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
 }
