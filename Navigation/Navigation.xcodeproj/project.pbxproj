@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		74195142281226E40045B8F5 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74195141281226E40045B8F5 /* LogInViewController.swift */; };
 		744F211127FC1FBA00E825E9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 744F211027FC1FBA00E825E9 /* AppDelegate.swift */; };
 		744F211A27FC1FBB00E825E9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 744F211927FC1FBB00E825E9 /* Assets.xcassets */; };
 		744F211D27FC1FBB00E825E9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 744F211B27FC1FBB00E825E9 /* LaunchScreen.storyboard */; };
@@ -19,6 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		74195141281226E40045B8F5 /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		744F210D27FC1FBA00E825E9 /* Navigation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Navigation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		744F211027FC1FBA00E825E9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		744F211927FC1FBB00E825E9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -43,6 +45,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7419514328124AD10045B8F5 /* Feed */ = {
+			isa = PBXGroup;
+			children = (
+				744F212427FC252C00E825E9 /* FeedViewController.swift */,
+				744F212A27FC5AA600E825E9 /* PostViewController.swift */,
+				744F212C27FD6ABA00E825E9 /* InfoViewController.swift */,
+			);
+			path = Feed;
+			sourceTree = "<group>";
+		};
 		744F210427FC1FBA00E825E9 = {
 			isa = PBXGroup;
 			children = (
@@ -64,9 +76,7 @@
 			children = (
 				744F211027FC1FBA00E825E9 /* AppDelegate.swift */,
 				744F212627FC281D00E825E9 /* MainTabBarControllerViewController.swift */,
-				744F212427FC252C00E825E9 /* FeedViewController.swift */,
-				744F212A27FC5AA600E825E9 /* PostViewController.swift */,
-				744F212C27FD6ABA00E825E9 /* InfoViewController.swift */,
+				7419514328124AD10045B8F5 /* Feed */,
 				74997C112803B00E001E0351 /* Profile */,
 				744F211927FC1FBB00E825E9 /* Assets.xcassets */,
 				744F211B27FC1FBB00E825E9 /* LaunchScreen.storyboard */,
@@ -80,6 +90,7 @@
 			children = (
 				744F212827FC2F0B00E825E9 /* ProfileViewController.swift */,
 				74997C122803B15A001E0351 /* ProfileHeaderView.swift */,
+				74195141281226E40045B8F5 /* LogInViewController.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -158,6 +169,7 @@
 				744F212527FC252C00E825E9 /* FeedViewController.swift in Sources */,
 				744F211127FC1FBA00E825E9 /* AppDelegate.swift in Sources */,
 				744F212727FC281D00E825E9 /* MainTabBarControllerViewController.swift in Sources */,
+				74195142281226E40045B8F5 /* LogInViewController.swift in Sources */,
 				74997C132803B15A001E0351 /* ProfileHeaderView.swift in Sources */,
 				744F212D27FD6ABA00E825E9 /* InfoViewController.swift in Sources */,
 				744F212B27FC5AA600E825E9 /* PostViewController.swift in Sources */,

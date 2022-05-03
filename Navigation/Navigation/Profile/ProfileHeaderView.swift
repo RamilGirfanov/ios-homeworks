@@ -52,6 +52,7 @@ class ProfileHeaderView: UIView {
         statusTextField.placeholder = "Введите статус"
         statusTextField.textColor = .black
         statusTextField.font = .systemFont(ofSize: 15, weight: .regular)
+        statusTextField.borderStyle = .roundedRect
         statusTextField.translatesAutoresizingMaskIntoConstraints = false
         
         statusTextField.layer.borderWidth = 1
@@ -88,60 +89,42 @@ class ProfileHeaderView: UIView {
                 
         return setStatusButton
     }()
-    
+     
     // MARK: - setup UI objects
     
-    private func setupImageView() {
-        superview?.addSubview(avatarImageView)
+    func setupPHView() {
         
-        NSLayoutConstraint.activate([
-            avatarImageView.leftAnchor.constraint(equalTo: superview!.safeAreaLayoutGuide.leftAnchor, constant: 16),
-            avatarImageView.topAnchor.constraint(equalTo: superview!.safeAreaLayoutGuide.topAnchor, constant: 0),
-            avatarImageView.heightAnchor.constraint(equalToConstant: 150),
-            avatarImageView.widthAnchor.constraint(equalToConstant: 150)
-        ])
-    }
-    
-    private func setupStackView() {
+        superview?.addSubview(avatarImageView)
         superview?.addSubview(stackView)
+        superview?.addSubview(setStatusButton)
         
         stackView.addArrangedSubview(fullNameLabel)
         stackView.addArrangedSubview(statusLabel)
         stackView.addArrangedSubview(statusTextField)
         
+        setStatusButton.addTarget(self, action: #selector(tap), for: .touchUpInside)
+        
         NSLayoutConstraint.activate([
+            avatarImageView.leftAnchor.constraint(equalTo: superview!.safeAreaLayoutGuide.leftAnchor, constant: 16),
+            avatarImageView.topAnchor.constraint(equalTo: superview!.safeAreaLayoutGuide.topAnchor, constant: 0),
+            avatarImageView.heightAnchor.constraint(equalToConstant: 150),
+            avatarImageView.widthAnchor.constraint(equalToConstant: 150),
+            
             stackView.topAnchor.constraint(equalTo: avatarImageView.topAnchor, constant: 0),
             stackView.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 16),
             stackView.trailingAnchor.constraint(equalTo: superview!.safeAreaLayoutGuide.trailingAnchor, constant: -16),
-            stackView.bottomAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: 0)
-        ])
-    }
-    
-    private func setupStatusButton() {
-        superview?.addSubview(setStatusButton)
-        
-        NSLayoutConstraint.activate([
+            stackView.bottomAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: 0),
+            
             setStatusButton.heightAnchor.constraint(equalToConstant: 50),
             setStatusButton.leftAnchor.constraint(equalTo: superview!.safeAreaLayoutGuide.leftAnchor, constant: 16),
             setStatusButton.rightAnchor.constraint(equalTo: superview!.safeAreaLayoutGuide.rightAnchor, constant: -16),
             setStatusButton.topAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: 16)
         ])
-        
-        setStatusButton.addTarget(self, action: #selector(tap), for: .touchUpInside)
     }
     
     @objc private func tap() {
         statusLabel.text = statusTextField.text
         statusTextField.text = ""
         print("Статус установлен")
-    }
-
-    // MARK: - apply settings
-
-    func setupPHView() {
-        
-        setupImageView()
-        setupStatusButton()
-        setupStackView()
     }
 }
