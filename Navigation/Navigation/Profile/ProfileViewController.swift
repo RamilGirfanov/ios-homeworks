@@ -8,52 +8,67 @@
 import UIKit
 
 class ProfileViewController: UIViewController {
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupPHView()
-        setupNewButton()
+        setupSelfView()
+        setupTableView()
     }
 
-//    MARK: - Появление и настройка ProfileHeaderView
-
-    let PHView = ProfileHeaderView()
-
-    private func setupPHView() {
+    private func setupSelfView() {
         view.backgroundColor = .white
-        view.addSubview(PHView)
-
-        PHView.setupPHView()
-
-        PHView.translatesAutoresizingMaskIntoConstraints = false
+    }
+        
+//    MARK: - Создание и настройка таблицы
+    
+    lazy var tableView: UITableView = {
+        let tableView = UITableView(frame: .zero, style: .grouped)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.register(CustomTableViewCell.self, forCellReuseIdentifier: CustomTableViewCell.identifier)
+        return tableView
+    }()
+    
+    private func setupTableView() {
+        view.addSubview(tableView)
         
         NSLayoutConstraint.activate([
-            PHView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
-            PHView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
-            PHView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
-            PHView.heightAnchor.constraint(equalToConstant: 220)
+            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
+}
 
-//    MARK: - Создание и настройка дополнительной кнопки
+//    MARK: - Расширения UITableView
+
+extension ProfileViewController: UITableViewDataSource {
     
-    let newButton: UIButton = {
-        let newButton = UIButton()
-        newButton.setTitle("I'm new button", for: .normal)
-        newButton.backgroundColor = .systemBlue
-        newButton.setTitleColor(.white, for: .normal)
-        return newButton
-    }()
-
-    private func setupNewButton() {
-        view.addSubview(newButton)
-
-        newButton.translatesAutoresizingMaskIntoConstraints = false
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        massive.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: CustomTableViewCell.identifier, for: indexPath) as! CustomTableViewCell
+        cell.fillingCell(post: massive[indexPath.row])
+        return cell
         
-        NSLayoutConstraint.activate([
-            newButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
-            newButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 0),
-            newButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0)
-        ])
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        1
+    }
+}
+
+extension ProfileViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        UITableView.automaticDimension
+    }
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let PHView = ProfileHeaderView()
+        return PHView
     }
 }

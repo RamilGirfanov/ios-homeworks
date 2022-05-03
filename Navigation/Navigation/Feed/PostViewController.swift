@@ -7,13 +7,14 @@
 
 import UIKit
 
-struct Post {
+// Меняю названия структур и объектов из-за необходимостти корректного нейминга в более поздних ДЗ
+struct PostTitle {
     let title: String
 }
 
 class PostViewController: UIViewController {
     
-    var post: Post?
+    var postTitle: PostTitle?
 
     override func viewDidLoad() {
         super.viewDidLoad()
