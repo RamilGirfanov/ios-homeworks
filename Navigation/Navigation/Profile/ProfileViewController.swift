@@ -9,7 +9,6 @@ import UIKit
 
 class ProfileViewController: UIViewController {
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupSelfView()
@@ -20,7 +19,7 @@ class ProfileViewController: UIViewController {
         view.backgroundColor = .white
     }
         
-//    MARK: - Создание и настройка таблицы
+//    MARK: - Создание, настройка и размещение таблицы
     
     lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
@@ -28,6 +27,7 @@ class ProfileViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(CustomTableViewCell.self, forCellReuseIdentifier: CustomTableViewCell.identifier)
+//        tableView.register(PhotosTableViewCell.self, forCellReuseIdentifier: PhotosTableViewCell.identifier)
         return tableView
     }()
     
@@ -43,30 +43,32 @@ class ProfileViewController: UIViewController {
     }
 }
 
-//    MARK: - Расширения UITableView
+//    MARK: - Расширение UITableViewDataSource
 
 extension ProfileViewController: UITableViewDataSource {
     
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        massive.count
+        posts.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: CustomTableViewCell.identifier, for: indexPath) as! CustomTableViewCell
-        cell.fillingCell(post: massive[indexPath.row])
+        cell.pullCell(post: posts[indexPath.row])
         return cell
-        
-    }
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        1
     }
 }
+
+//    MARK: - Расширение UITableViewDelegate
 
 extension ProfileViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         UITableView.automaticDimension
     }
+    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let PHView = ProfileHeaderView()
         return PHView

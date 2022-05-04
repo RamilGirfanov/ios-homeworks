@@ -101,7 +101,7 @@ class CustomTableViewCell: UITableViewCell {
     
 //    MARK: - Заполнение ячеек данными
     
-    func fillingCell(post: Post) {
+    func pullCell(post: Post) {
         authorLabel.text = post.author
         image.image = post.image
         descriptionLabel.text = post.description

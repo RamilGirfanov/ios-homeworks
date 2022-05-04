@@ -22,5 +22,5 @@ let post2 = Post(author: "Рамиль Гирфанов", description: "Зимн
 let post3 = Post(author: "Рамиль Гирфанов", description: "Памятник геологам Якутии", image: UIImage(named: "IM3")!, likes: 18, views: 34)
 let post4 = Post(author: "Рамиль Гирфанов", description: "Над облаками", image: UIImage(named: "IM4")!, likes: 15, views: 36)
 
-let massive = [post1, post2, post3, post4]
+let posts = [post1, post2, post3, post4]
 
