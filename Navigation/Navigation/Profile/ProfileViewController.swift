@@ -17,6 +17,7 @@ class ProfileViewController: UIViewController {
 
     private func setupSelfView() {
         view.backgroundColor = .white
+        view.backgroundColor = .systemGray6
     }
         
 //    MARK: - Создание, настройка и размещение таблицы
@@ -51,25 +52,17 @@ extension ProfileViewController: UITableViewDataSource {
         return 2
     }
     
-//    В зависимости от секции возвращаю необхобимое мне количество ячеек
+//    В зависимости от секции возвращает необхобимое количество ячеек
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 {
-            return 1
-        } else {
-            return posts.count
-        }
+        return section == 0 ? 1 : posts.count
     }
     
-//    В зависимости от секции возвращаю необходимый мне тип ячейки
+//    В зависимости от секции возвращает необходимый тип ячейки
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.section == 0 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: PhotosTableViewCell.identifier, for: indexPath) as! PhotosTableViewCell
-            return cell
-        } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: CustomTableViewCell.identifier, for: indexPath) as! CustomTableViewCell
-            cell.pullCell(post: posts[indexPath.row])
-            return cell
-        }
+        let cell1 = tableView.dequeueReusableCell(withIdentifier: PhotosTableViewCell.identifier, for: indexPath) as! PhotosTableViewCell
+        let cell2 = tableView.dequeueReusableCell(withIdentifier: CustomTableViewCell.identifier, for: indexPath) as! CustomTableViewCell
+        cell2.pullCell(post: posts[indexPath.row])
+        return indexPath.section == 0 ? cell1 : cell2
     }
 }
 
@@ -77,16 +70,20 @@ extension ProfileViewController: UITableViewDataSource {
 //    MARK: - Расширение UITableViewDelegate
 
 extension ProfileViewController: UITableViewDelegate {
+    
+//    Возвращает динамическую высоту ячейки
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         UITableView.automaticDimension
     }
     
+//    В зависимости от секции возвращает необходимый хедер
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        if section == 0 {
-            let PHView = ProfileHeaderView()
-            return PHView
-        } else {
-            return nil
-        }
+        let PHView = ProfileHeaderView()
+        return section == 0 ? PHView : nil
+    }
+    
+//    В зависимости от секции возвращает необходимую высоту хедера
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return section == 0 ? UITableView.automaticDimension : 0
     }
 }

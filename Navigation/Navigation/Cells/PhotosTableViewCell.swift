@@ -22,12 +22,6 @@ class PhotosTableViewCell: UITableViewCell {
         
 //    MARK: - Создание и настройка объектов
     
-    private let view: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
     private let label: UILabel = {
         let label = UILabel()
         label.text = "Photos"
@@ -61,26 +55,21 @@ class PhotosTableViewCell: UITableViewCell {
     //    MARK: - Расстановка объектов в ячейке
 
     private func layout() {
-        [view, label, button, collectionView].forEach { contentView.addSubview($0) }
+        [label, button, collectionView].forEach { contentView.addSubview($0) }
         
         let constr: CGFloat = 12
                         
         NSLayoutConstraint.activate([
-            view.topAnchor.constraint(equalTo: contentView.topAnchor),
-            view.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            view.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            view.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            
-            label.topAnchor.constraint(equalTo: view.topAnchor, constant: constr),
-            label.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: constr),
+            label.topAnchor.constraint(equalTo: contentView.topAnchor, constant: constr),
+            label.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: constr),
             
             button.centerYAnchor.constraint(equalTo: label.centerYAnchor),
-            button.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -constr),
+            button.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -constr),
             
             collectionView.topAnchor.constraint(equalTo: label.bottomAnchor, constant: constr),
-            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: constr),
-            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -constr),
-            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -constr),
+            collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: constr),
+            collectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -constr),
+            collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -constr),
             collectionView.heightAnchor.constraint(equalToConstant: 100)
         ])
     }
@@ -113,17 +102,4 @@ extension PhotosTableViewCell: UICollectionViewDelegateFlowLayout {
         let width = (collectionView.bounds.width - interSpace * 3) / 4
         return CGSize(width: width, height: width)
     }
-    
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-//        return interSpace
-//    }
-    
-//    Между линиями
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-//        return interSpace
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-//        UIEdgeInsets(top: interSpace, left: interSpace, bottom: interSpace, right: interSpace)
-//    }
 }
