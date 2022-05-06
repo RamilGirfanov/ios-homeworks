@@ -83,7 +83,7 @@ class CustomTableViewCell: UITableViewCell {
             image.topAnchor.constraint(equalTo: authorLabel.bottomAnchor, constant: 12),
             image.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             image.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            image.heightAnchor.constraint(equalTo: image.widthAnchor, multiplier: 1.0),
+            image.heightAnchor.constraint(equalTo: image.widthAnchor),
             
             descriptionLabel.topAnchor.constraint(equalTo: image.bottomAnchor, constant: constr),
             descriptionLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: constr),
