@@ -1,19 +1,18 @@
 //
-//  CustomCollectionViewCell.swift
+//  PhotosCollectionViewCell.swift
 //  Navigation
 //
-//  Created by Рамиль Гирфанов on 04.05.2022.
+//  Created by Рамиль Гирфанов on 07.05.2022.
 //
 
 import UIKit
 
-class CustomCollectionViewCell: UICollectionViewCell {
+class PhotosCollectionViewCell: UICollectionViewCell {
     
-    private let image: UIImageView = {
+    let image: UIImageView = {
         let image = UIImageView()
         image.contentMode = .scaleAspectFill
         image.translatesAutoresizingMaskIntoConstraints = false
-        image.backgroundColor = .orange
         return image
     }()
     
@@ -21,24 +20,22 @@ class CustomCollectionViewCell: UICollectionViewCell {
     
     private func setupCell() {
         addSubview(image)
-
         NSLayoutConstraint.activate([
             image.topAnchor.constraint(equalTo: topAnchor),
             image.leadingAnchor.constraint(equalTo: leadingAnchor),
             image.trailingAnchor.constraint(equalTo: trailingAnchor),
             image.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
-        layer.cornerRadius = 6
         clipsToBounds = true
     }
     
 //    MARK: - Функция наполнения
-    
+
     func pullCell(photo: UIImage) {
         image.image = photo
     }
     
-    //    MARK: - Инициализатор
+//    MARK: - Инициализатор
     
     override init(frame: CGRect) {
         super.init(frame: frame)

@@ -14,6 +14,11 @@ class ProfileViewController: UIViewController {
         setupSelfView()
         setupTableView()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.isHidden = true
+    }
 
     private func setupSelfView() {
         view.backgroundColor = .white
@@ -85,5 +90,13 @@ extension ProfileViewController: UITableViewDelegate {
 //    В зависимости от секции возвращает необходимую высоту хедера
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return section == 0 ? UITableView.automaticDimension : 0
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let galleryVC = PhotosViewController()
+        galleryVC.title = "Photo Gallery"
+        indexPath.section == 0 ? navigationController?.pushViewController(galleryVC, animated: true) : nil
+        
     }
 }

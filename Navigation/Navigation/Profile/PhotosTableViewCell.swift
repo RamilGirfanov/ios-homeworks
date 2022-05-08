@@ -73,7 +73,6 @@ class PhotosTableViewCell: UITableViewCell {
             collectionView.heightAnchor.constraint(equalToConstant: 100)
         ])
     }
-
 }
 
 //  MARK: - Расширение UICollectionViewDataSource
