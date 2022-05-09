@@ -21,6 +21,7 @@
 		74997C132803B15A001E0351 /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74997C122803B15A001E0351 /* ProfileHeaderView.swift */; };
 		749EBB7928265CAA00DD75BF /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 749EBB7828265CAA00DD75BF /* PhotosViewController.swift */; };
 		749EBB7B2826B0A500DD75BF /* PhotosCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 749EBB7A2826B0A500DD75BF /* PhotosCollectionViewCell.swift */; };
+		749EBB8328294A5800DD75BF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 749EBB8228294A5800DD75BF /* SceneDelegate.swift */; };
 		74C15FE128226FAE00ED9B27 /* CustomCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C15FE028226FAE00ED9B27 /* CustomCollectionViewCell.swift */; };
 		74F1348D281A298E0022FE0E /* Protocol of Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74F1348C281A298E0022FE0E /* Protocol of Model.swift */; };
 		74F1348F281A29A70022FE0E /* Posts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74F1348E281A29A70022FE0E /* Posts.swift */; };
@@ -45,6 +46,7 @@
 		74997C122803B15A001E0351 /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
 		749EBB7828265CAA00DD75BF /* PhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosViewController.swift; sourceTree = "<group>"; };
 		749EBB7A2826B0A500DD75BF /* PhotosCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosCollectionViewCell.swift; sourceTree = "<group>"; };
+		749EBB8228294A5800DD75BF /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		74C15FE028226FAE00ED9B27 /* CustomCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCollectionViewCell.swift; sourceTree = "<group>"; };
 		74F1348C281A298E0022FE0E /* Protocol of Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Protocol of Model.swift"; sourceTree = "<group>"; };
 		74F1348E281A29A70022FE0E /* Posts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Posts.swift; sourceTree = "<group>"; };
@@ -93,6 +95,7 @@
 			isa = PBXGroup;
 			children = (
 				744F211027FC1FBA00E825E9 /* AppDelegate.swift */,
+				749EBB8228294A5800DD75BF /* SceneDelegate.swift */,
 				744F212627FC281D00E825E9 /* MainTabBarControllerViewController.swift */,
 				74F13496281A7E770022FE0E /* Identifier.swift */,
 				7419514328124AD10045B8F5 /* Feed */,
@@ -219,6 +222,7 @@
 				7479DBA228225C75007E7399 /* Gallery.swift in Sources */,
 				74F13495281A68530022FE0E /* CustomTableViewCell.swift in Sources */,
 				74195142281226E40045B8F5 /* LogInViewController.swift in Sources */,
+				749EBB8328294A5800DD75BF /* SceneDelegate.swift in Sources */,
 				74997C132803B15A001E0351 /* ProfileHeaderView.swift in Sources */,
 				747A11C42821F9BC004523E5 /* PhotosTableViewCell.swift in Sources */,
 				744F212D27FD6ABA00E825E9 /* InfoViewController.swift in Sources */,
