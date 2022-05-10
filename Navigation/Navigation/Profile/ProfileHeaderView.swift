@@ -11,7 +11,7 @@ class ProfileHeaderView: UIView {
     
     // MARK: - Создание объектов
     
-    let avatarImageView: UIImageView = {
+    private let avatarImageView: UIImageView = {
         let avatarImageView = UIImageView()
         avatarImageView.image = UIImage(named: "profileImage")
         avatarImageView.layer.borderWidth = 3
@@ -22,7 +22,7 @@ class ProfileHeaderView: UIView {
         return avatarImageView
     }()
     
-    let fullNameLabel: UILabel = {
+    private let fullNameLabel: UILabel = {
         let fullNameLabel = UILabel()
         fullNameLabel.text = "Рамиль Гирфанов"
         fullNameLabel.textColor = .black
@@ -31,7 +31,7 @@ class ProfileHeaderView: UIView {
         return fullNameLabel
     }()
     
-    let statusLabel: UILabel = {
+    private let statusLabel: UILabel = {
         let statusLabel = UILabel()
         statusLabel.text = "Waiting for something..."
         statusLabel.textColor = .gray
@@ -40,7 +40,7 @@ class ProfileHeaderView: UIView {
         return statusLabel
     }()
     
-    let statusTextField: UITextField = {
+    private let statusTextField: UITextField = {
         let statusTextField = UITextField()
         statusTextField.placeholder = "Введите статус"
         statusTextField.textColor = .black
@@ -54,7 +54,7 @@ class ProfileHeaderView: UIView {
         return statusTextField
     }()
     
-    let stackView: UIStackView = {
+    private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.spacing = 10
@@ -63,7 +63,7 @@ class ProfileHeaderView: UIView {
         return stackView
     }()
     
-    let setStatusButton: UIButton = {
+    private let setStatusButton: UIButton = {
         let setStatusButton = UIButton()
         setStatusButton.setTitle("Set status", for: .normal)
         setStatusButton.setTitleColor(.white, for: .normal)
@@ -79,7 +79,7 @@ class ProfileHeaderView: UIView {
      
     // MARK: - Настройка объектов
     
-    func setupPHView() {
+    private func setupPHView() {
         [avatarImageView, stackView, setStatusButton].forEach { addSubview($0) }
         [fullNameLabel, statusLabel, statusTextField].forEach { stackView.addArrangedSubview($0) }
          
@@ -125,5 +125,4 @@ class ProfileHeaderView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
 }

@@ -27,7 +27,7 @@ class ProfileViewController: UIViewController {
         
 //    MARK: - Создание, настройка и размещение таблицы
     
-    lazy var tableView: UITableView = {
+    private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.dataSource = self
@@ -97,6 +97,5 @@ extension ProfileViewController: UITableViewDelegate {
         let galleryVC = PhotosViewController()
         galleryVC.title = "Photo Gallery"
         indexPath.section == 0 ? navigationController?.pushViewController(galleryVC, animated: true) : nil
-        
     }
 }

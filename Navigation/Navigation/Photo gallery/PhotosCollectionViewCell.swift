@@ -9,7 +9,18 @@ import UIKit
 
 class PhotosCollectionViewCell: UICollectionViewCell {
     
-    let image: UIImageView = {
+    //    MARK: - Инициализатор
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupCell()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private let image: UIImageView = {
         let image = UIImageView()
         image.contentMode = .scaleAspectFill
         image.translatesAutoresizingMaskIntoConstraints = false
@@ -31,18 +42,8 @@ class PhotosCollectionViewCell: UICollectionViewCell {
     
 //    MARK: - Функция наполнения
 
+//    Этот метод будем вызывать из другого класса
     func pullCell(photo: UIImage) {
         image.image = photo
-    }
-    
-//    MARK: - Инициализатор
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setupCell()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
 }

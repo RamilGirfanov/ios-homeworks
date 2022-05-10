@@ -8,6 +8,17 @@
 import UIKit
 
 class CustomTableViewCell: UITableViewCell {
+    
+//    MARK: - Инициализатор
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        layout()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
             
 //    MARK: - Создание и настройка объектов для кастомизации ячейки
     
@@ -65,7 +76,7 @@ class CustomTableViewCell: UITableViewCell {
 
 //    MARK: - Расстановка объектов в ячейке
     
-    func layout() {
+    private func layout() {
         [view, authorLabel, image, descriptionLabel, likesLabel, viewsLabel].forEach { contentView.addSubview($0) }
         
         let constr: CGFloat = 16
@@ -101,6 +112,7 @@ class CustomTableViewCell: UITableViewCell {
     
 //    MARK: - Заполнение ячеек данными
     
+//    Этот метод будем вызывать из другого класса
     func pullCell(post: Post) {
         authorLabel.text = post.author
         image.image = post.image
@@ -108,17 +120,4 @@ class CustomTableViewCell: UITableViewCell {
         likesLabel.text = "Likes: \(post.likes)"
         viewsLabel.text = "Views: \(post.views)"
     }
-    
-    
-//    MARK: - Инициализатор
-    
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        layout()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
 }

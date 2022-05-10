@@ -11,14 +11,14 @@ class LogInViewController: UIViewController {
 
 //    MARK: - Создание UI объектов
     
-    let logoImage: UIImageView = {
+    private let logoImage: UIImageView = {
         let logoImage = UIImageView()
         logoImage.image = UIImage(named: "logo")
         logoImage.translatesAutoresizingMaskIntoConstraints = false
         return logoImage
     }()
     
-    lazy var loginTextField: UITextField = {
+    private lazy var loginTextField: UITextField = {
         let loginTextField = UITextField()
         loginTextField.textColor = .black
         loginTextField.backgroundColor = .systemGray6
@@ -34,7 +34,7 @@ class LogInViewController: UIViewController {
         return loginTextField
     }()
     
-    lazy var passTextField: UITextField = {
+    private lazy var passTextField: UITextField = {
         let passTextField = UITextField()
         passTextField.textColor = .black
         passTextField.backgroundColor = .systemGray6
@@ -51,7 +51,7 @@ class LogInViewController: UIViewController {
         return passTextField
     }()
     
-    let stack: UIStackView = {
+    private let stack: UIStackView = {
         let stack = UIStackView()
         stack.axis = .vertical
         stack.distribution = .fillEqually
@@ -63,7 +63,7 @@ class LogInViewController: UIViewController {
         return stack
     }()
     
-    let button: UIButton = {
+    private lazy var button: UIButton = {
         let button = UIButton()
         
         button.setTitle("Log in", for: .normal)
@@ -99,13 +99,13 @@ class LogInViewController: UIViewController {
     
 //    MARK: - Создание КонтентВью и СкроллВью
     
-    let contentView: UIView = {
+    private let contentView: UIView = {
         let contentView = UIView()
         contentView.translatesAutoresizingMaskIntoConstraints = false
         return contentView
     }()
     
-    let scrollView: UIScrollView = {
+    private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         return scrollView
@@ -159,7 +159,7 @@ class LogInViewController: UIViewController {
     
 //    MARK: - Notification center
     
-    let nc = NotificationCenter.default
+    private let nc = NotificationCenter.default
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
