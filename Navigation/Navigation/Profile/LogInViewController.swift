@@ -8,6 +8,13 @@
 import UIKit
 
 class LogInViewController: UIViewController {
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        layout()
+        navigationController?.navigationBar.isHidden = true
+        self.setupToHideKeyboardOnTapOnView()
+    }
 
 //    MARK: - Создание UI объектов
     
@@ -151,12 +158,6 @@ class LogInViewController: UIViewController {
         ])
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        layout()
-        navigationController?.navigationBar.isHidden = true
-    }
-    
 //    MARK: - Notification center
     
     private let nc = NotificationCenter.default
@@ -186,11 +187,25 @@ class LogInViewController: UIViewController {
     }
 }
 
-//  MARK: - Расширение для клавиатуры
+//  MARK: - Расширение для клавиатуры что бы она скрывалась по нажанию на return
 
 extension LogInViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         view.endEditing(true)
         return true
+    }
+}
+
+//  MARK: - Расширение для клавиатуры что бы она скрывалась по нажанию на любое место экрана
+
+extension UIViewController {
+    func setupToHideKeyboardOnTapOnView() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
     }
 }
