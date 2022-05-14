@@ -11,7 +11,7 @@ class ProfileHeaderView: UIView {
     
     // MARK: - Создание объектов
     
-    private lazy var avatarImageView: UIImageView = {
+    lazy var avatarImageView: UIImageView = {
         lazy var avatarImageView = UIImageView()
         avatarImageView.image = UIImage(named: "profileImage")
         avatarImageView.layer.borderWidth = 3
@@ -19,7 +19,18 @@ class ProfileHeaderView: UIView {
         avatarImageView.layer.cornerRadius = 75
         avatarImageView.clipsToBounds = true
         avatarImageView.translatesAutoresizingMaskIntoConstraints = false
+        avatarImageView.isUserInteractionEnabled = true
         return avatarImageView
+    }()
+    
+//    Для ДЗ по анимациям нужно создать дополнительный view на котором расположить аватар
+    lazy var view: UIView = {
+        lazy var view = UIView()
+        view.backgroundColor = .black
+        view.layer.cornerRadius = 75
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.isUserInteractionEnabled = true
+        return view
     }()
     
     private lazy var fullNameLabel: UILabel = {
@@ -80,7 +91,7 @@ class ProfileHeaderView: UIView {
     // MARK: - Настройка объектов
     
     private func setupPHView() {
-        [avatarImageView, stackView, setStatusButton].forEach { addSubview($0) }
+        [view, avatarImageView, stackView, setStatusButton].forEach { addSubview($0) }
         [fullNameLabel, statusLabel, statusTextField].forEach { stackView.addArrangedSubview($0) }
          
         setStatusButton.addTarget(self, action: #selector(tap), for: .touchUpInside)
@@ -89,10 +100,15 @@ class ProfileHeaderView: UIView {
         lazy var photoConstr: CGFloat = 150
 
         NSLayoutConstraint.activate([
-            avatarImageView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
-            avatarImageView.leftAnchor.constraint(equalTo: safeAreaLayoutGuide.leftAnchor, constant: constr),
-            avatarImageView.heightAnchor.constraint(equalToConstant: photoConstr),
-            avatarImageView.widthAnchor.constraint(equalToConstant: photoConstr),
+            view.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+            view.leftAnchor.constraint(equalTo: safeAreaLayoutGuide.leftAnchor, constant: constr),
+            view.heightAnchor.constraint(equalToConstant: photoConstr),
+            view.widthAnchor.constraint(equalToConstant: photoConstr),
+            
+            avatarImageView.topAnchor.constraint(equalTo: view.topAnchor),
+            avatarImageView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            avatarImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            avatarImageView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             
             stackView.topAnchor.constraint(equalTo: avatarImageView.topAnchor),
             stackView.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: constr),
