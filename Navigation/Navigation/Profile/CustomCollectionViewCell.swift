@@ -20,8 +20,8 @@ class CustomCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private let image: UIImageView = {
-        let image = UIImageView()
+    private lazy var image: UIImageView = {
+        lazy var image = UIImageView()
         image.contentMode = .scaleAspectFill
         image.translatesAutoresizingMaskIntoConstraints = false
         return image

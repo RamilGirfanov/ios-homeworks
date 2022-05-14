@@ -14,8 +14,8 @@ class MainTabBarControllerViewController: UITabBarController {
         setupController()
     }
 
-    private let feedVC = FeedViewController()
-    private let profileVC = LogInViewController()
+    private lazy var feedVC = FeedViewController()
+    private lazy var profileVC = LogInViewController()
 
     private func setupController() {
         let firstNC = UINavigationController(rootViewController: feedVC)

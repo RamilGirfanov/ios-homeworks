@@ -22,14 +22,14 @@ class CustomTableViewCell: UITableViewCell {
             
 //    MARK: - Создание и настройка объектов для кастомизации ячейки
     
-    private let view: UIView = {
-        let view = UIView()
+    private lazy var view: UIView = {
+        lazy var view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    private let authorLabel: UILabel = {
-        let authorLabel = UILabel()
+    private lazy var authorLabel: UILabel = {
+        lazy var authorLabel = UILabel()
         authorLabel.translatesAutoresizingMaskIntoConstraints = false
         authorLabel.font = .systemFont(ofSize: 20, weight: .bold)
         authorLabel.textColor = .black
@@ -38,16 +38,16 @@ class CustomTableViewCell: UITableViewCell {
         return authorLabel
     }()
     
-    private let image: UIImageView = {
-        let image = UIImageView()
+    private lazy var image: UIImageView = {
+        lazy var image = UIImageView()
         image.translatesAutoresizingMaskIntoConstraints = false
         image.backgroundColor = .black
         image.contentMode = .scaleAspectFit
         return image
     }()
     
-    private let descriptionLabel: UILabel = {
-        let descriptionLabel = UILabel()
+    private lazy var descriptionLabel: UILabel = {
+        lazy var descriptionLabel = UILabel()
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         descriptionLabel.font = .systemFont(ofSize: 14, weight: .regular)
         descriptionLabel.textColor = .systemGray
@@ -56,8 +56,8 @@ class CustomTableViewCell: UITableViewCell {
         return descriptionLabel
     }()
     
-    private let likesLabel: UILabel = {
-        let likesLabel = UILabel()
+    private lazy var likesLabel: UILabel = {
+        lazy var likesLabel = UILabel()
         likesLabel.translatesAutoresizingMaskIntoConstraints = false
         likesLabel.font = .systemFont(ofSize: 16, weight: .regular)
         likesLabel.textColor = .black
@@ -65,8 +65,8 @@ class CustomTableViewCell: UITableViewCell {
         return likesLabel
     }()
     
-    private let viewsLabel: UILabel = {
-        let viewsLabel = UILabel()
+    private lazy var viewsLabel: UILabel = {
+        lazy var viewsLabel = UILabel()
         viewsLabel.translatesAutoresizingMaskIntoConstraints = false
         viewsLabel.font = .systemFont(ofSize: 16, weight: .regular)
         viewsLabel.textColor = .black
@@ -79,7 +79,7 @@ class CustomTableViewCell: UITableViewCell {
     private func layout() {
         [view, authorLabel, image, descriptionLabel, likesLabel, viewsLabel].forEach { contentView.addSubview($0) }
         
-        let constr: CGFloat = 16
+        lazy var constr: CGFloat = 16
         
         NSLayoutConstraint.activate([
             view.topAnchor.constraint(equalTo: contentView.topAnchor),

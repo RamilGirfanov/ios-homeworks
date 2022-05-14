@@ -18,15 +18,15 @@ class LogInViewController: UIViewController {
 
 //    MARK: - Создание UI объектов
     
-    private let logoImage: UIImageView = {
-        let logoImage = UIImageView()
+    private lazy var logoImage: UIImageView = {
+        lazy var logoImage = UIImageView()
         logoImage.image = UIImage(named: "logo")
         logoImage.translatesAutoresizingMaskIntoConstraints = false
         return logoImage
     }()
     
     private lazy var loginTextField: UITextField = {
-        let loginTextField = UITextField()
+        lazy var loginTextField = UITextField()
         loginTextField.textColor = .black
         loginTextField.backgroundColor = .systemGray6
         loginTextField.autocapitalizationType = .none
@@ -42,7 +42,7 @@ class LogInViewController: UIViewController {
     }()
     
     private lazy var passTextField: UITextField = {
-        let passTextField = UITextField()
+        lazy var passTextField = UITextField()
         passTextField.textColor = .black
         passTextField.backgroundColor = .systemGray6
         passTextField.autocapitalizationType = .none
@@ -58,8 +58,8 @@ class LogInViewController: UIViewController {
         return passTextField
     }()
     
-    private let stack: UIStackView = {
-        let stack = UIStackView()
+    private lazy var stack: UIStackView = {
+        lazy var stack = UIStackView()
         stack.axis = .vertical
         stack.distribution = .fillEqually
         stack.layer.cornerRadius = 10
@@ -71,13 +71,11 @@ class LogInViewController: UIViewController {
     }()
     
     private lazy var button: UIButton = {
-        let button = UIButton()
-        
+        lazy var button = UIButton()
         button.setTitle("Log in", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.clipsToBounds = true
         button.setBackgroundImage(UIImage(named: "blue_pixel"), for: .normal)
-        
         switch button.state {
         case .normal:
             button.alpha = 1
@@ -90,30 +88,27 @@ class LogInViewController: UIViewController {
         default:
             button.alpha = 1
         }
-        
         button.addTarget(self, action: #selector(tap), for: .touchUpInside)
-            
         button.layer.cornerRadius = 10
         button.translatesAutoresizingMaskIntoConstraints = false
-        
         return button
     }()
     
     @objc private func tap() {
-        let profileVC = ProfileViewController()
+        lazy var profileVC = ProfileViewController()
         navigationController?.pushViewController(profileVC, animated: true)
     }
     
 //    MARK: - Создание КонтентВью и СкроллВью
     
-    private let contentView: UIView = {
-        let contentView = UIView()
+    private lazy var contentView: UIView = {
+        lazy var contentView = UIView()
         contentView.translatesAutoresizingMaskIntoConstraints = false
         return contentView
     }()
     
-    private let scrollView: UIScrollView = {
-        let scrollView = UIScrollView()
+    private lazy var scrollView: UIScrollView = {
+        lazy var scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         return scrollView
     }()
@@ -160,7 +155,7 @@ class LogInViewController: UIViewController {
     
 //    MARK: - Notification center
     
-    private let nc = NotificationCenter.default
+    private lazy var nc = NotificationCenter.default
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -200,7 +195,7 @@ extension LogInViewController: UITextFieldDelegate {
 
 extension UIViewController {
     func setupToHideKeyboardOnTapOnView() {
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
+        lazy var tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
         tap.cancelsTouchesInView = false
         view.addGestureRecognizer(tap)
     }
