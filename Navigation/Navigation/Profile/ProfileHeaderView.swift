@@ -11,88 +11,75 @@ class ProfileHeaderView: UIView {
     
     // MARK: - Создание объектов
     
-    let avatarImageView: UIImageView = {
+    private let avatarImageView: UIImageView = {
         let avatarImageView = UIImageView()
-        
         avatarImageView.image = UIImage(named: "profileImage")
         avatarImageView.layer.borderWidth = 3
         avatarImageView.layer.borderColor = UIColor.white.cgColor
         avatarImageView.layer.cornerRadius = 75
         avatarImageView.clipsToBounds = true
         avatarImageView.translatesAutoresizingMaskIntoConstraints = false
-        
         return avatarImageView
     }()
     
-    let fullNameLabel: UILabel = {
+    private let fullNameLabel: UILabel = {
         let fullNameLabel = UILabel()
-        
         fullNameLabel.text = "Рамиль Гирфанов"
         fullNameLabel.textColor = .black
         fullNameLabel.font = .systemFont(ofSize: 18, weight: .bold)
         fullNameLabel.translatesAutoresizingMaskIntoConstraints = false
-        
         return fullNameLabel
     }()
     
-    let statusLabel: UILabel = {
+    private let statusLabel: UILabel = {
         let statusLabel = UILabel()
-        
         statusLabel.text = "Waiting for something..."
         statusLabel.textColor = .gray
         statusLabel.font = .systemFont(ofSize: 14, weight: .regular)
         statusLabel.translatesAutoresizingMaskIntoConstraints = false
-        
         return statusLabel
     }()
     
-    let statusTextField: UITextField = {
+    private let statusTextField: UITextField = {
         let statusTextField = UITextField()
-        
         statusTextField.placeholder = "Введите статус"
         statusTextField.textColor = .black
         statusTextField.font = .systemFont(ofSize: 15, weight: .regular)
         statusTextField.borderStyle = .roundedRect
         statusTextField.translatesAutoresizingMaskIntoConstraints = false
-        
         statusTextField.layer.borderWidth = 1
         statusTextField.layer.borderColor = UIColor.black.cgColor
         statusTextField.layer.cornerRadius = 12
         statusTextField.layer.backgroundColor = UIColor.white.cgColor
-        
         return statusTextField
     }()
     
-    let stackView: UIStackView = {
+    private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.spacing = 10
         stackView.distribution = .fillEqually
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        
         return stackView
     }()
     
-    let setStatusButton: UIButton = {
+    private let setStatusButton: UIButton = {
         let setStatusButton = UIButton()
-        
         setStatusButton.setTitle("Set status", for: .normal)
         setStatusButton.setTitleColor(.white, for: .normal)
         setStatusButton.layer.cornerRadius = 12
         setStatusButton.backgroundColor = .systemBlue
-        
         setStatusButton.layer.shadowOffset = CGSize(width: 4, height: 4)
         setStatusButton.layer.shadowRadius = 4
         setStatusButton.layer.shadowColor = UIColor.black.cgColor
         setStatusButton.layer.shadowOpacity = 0.7
         setStatusButton.translatesAutoresizingMaskIntoConstraints = false
-                
         return setStatusButton
     }()
      
     // MARK: - Настройка объектов
     
-    func setupPHView() {
+    private func setupPHView() {
         [avatarImageView, stackView, setStatusButton].forEach { addSubview($0) }
         [fullNameLabel, statusLabel, statusTextField].forEach { stackView.addArrangedSubview($0) }
          
@@ -138,5 +125,4 @@ class ProfileHeaderView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
 }

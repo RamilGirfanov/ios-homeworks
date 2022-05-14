@@ -9,7 +9,6 @@ import UIKit
 
 class FeedViewController: UIViewController {
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -33,8 +32,5 @@ class FeedViewController: UIViewController {
         navigationController?.pushViewController(postVC, animated: true)
     }
 
-
-    
     let postTitle = PostTitle(title: "Заголовок")
-    
 }

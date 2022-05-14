@@ -8,6 +8,17 @@
 import UIKit
 
 class CustomTableViewCell: UITableViewCell {
+    
+//    MARK: - Инициализатор
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        layout()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
             
 //    MARK: - Создание и настройка объектов для кастомизации ячейки
     
@@ -65,7 +76,7 @@ class CustomTableViewCell: UITableViewCell {
 
 //    MARK: - Расстановка объектов в ячейке
     
-    func layout() {
+    private func layout() {
         [view, authorLabel, image, descriptionLabel, likesLabel, viewsLabel].forEach { contentView.addSubview($0) }
         
         let constr: CGFloat = 16
@@ -83,7 +94,7 @@ class CustomTableViewCell: UITableViewCell {
             image.topAnchor.constraint(equalTo: authorLabel.bottomAnchor, constant: 12),
             image.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             image.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            image.heightAnchor.constraint(equalTo: image.widthAnchor, multiplier: 1.0),
+            image.heightAnchor.constraint(equalTo: image.widthAnchor),
             
             descriptionLabel.topAnchor.constraint(equalTo: image.bottomAnchor, constant: constr),
             descriptionLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: constr),
@@ -101,24 +112,12 @@ class CustomTableViewCell: UITableViewCell {
     
 //    MARK: - Заполнение ячеек данными
     
-    func fillingCell(post: Post) {
+//    Этот метод будем вызывать из другого класса
+    func pullCell(post: Post) {
         authorLabel.text = post.author
         image.image = post.image
         descriptionLabel.text = post.description
         likesLabel.text = "Likes: \(post.likes)"
         viewsLabel.text = "Views: \(post.views)"
     }
-    
-    
-//    MARK: - Инициализатор
-    
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        layout()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
 }

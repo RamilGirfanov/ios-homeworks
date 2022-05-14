@@ -8,14 +8,14 @@
 import UIKit
 
 class MainTabBarControllerViewController: UITabBarController {
-
-    let feedVC = FeedViewController()
-    let profileVC = LogInViewController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupController()
     }
+
+    private let feedVC = FeedViewController()
+    private let profileVC = LogInViewController()
 
     private func setupController() {
         let firstNC = UINavigationController(rootViewController: feedVC)

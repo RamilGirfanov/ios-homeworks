@@ -14,14 +14,13 @@ struct PostTitle {
 
 class PostViewController: UIViewController {
     
-    var postTitle: PostTitle?
-
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .yellow
         makeBarItem()
-
     }
+    
+    var postTitle: PostTitle?
     
     private func makeBarItem(){
         let barItem = UIBarButtonItem(title: "Инфо", style: .plain, target: self, action: #selector(tap))
@@ -33,5 +32,4 @@ class PostViewController: UIViewController {
         infoVC.title = "Инфо"
         present(infoVC, animated: true)
     }
-    
 }
