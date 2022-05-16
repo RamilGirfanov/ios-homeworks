@@ -47,6 +47,7 @@ class ProfileViewController: UIViewController {
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
+
 }
 
 //    MARK: - Расширение UITableViewDataSource
@@ -83,7 +84,7 @@ extension ProfileViewController: UITableViewDelegate {
     
 //    В зависимости от секции возвращает необходимый хедер
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let PHView = ProfileHeaderView()
+        lazy var PHView = ProfileHeaderView()
         return section == 0 ? PHView : nil
     }
     
