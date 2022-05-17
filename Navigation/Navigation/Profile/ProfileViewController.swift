@@ -47,7 +47,12 @@ class ProfileViewController: UIViewController {
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
-
+    var userImage: UIImage?
+    var userView: UIView = {
+        var userView = UIView()
+        userView.translatesAutoresizingMaskIntoConstraints = false
+        return userView
+    }()
 }
 
 //    MARK: - Расширение UITableViewDataSource
@@ -85,6 +90,14 @@ extension ProfileViewController: UITableViewDelegate {
 //    В зависимости от секции возвращает необходимый хедер
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         lazy var PHView = ProfileHeaderView()
+        
+//        Опознаватель касания
+        let tap = UITapGestureRecognizer(target: self, action: #selector(ProfileViewController.fullscreenImage))
+        PHView.avatarImageView.addGestureRecognizer(tap)
+        PHView.avatarImageView.isUserInteractionEnabled = true
+        userImage = PHView.avatarImageView.image
+        userView = PHView.viewForAvatar
+        
         return section == 0 ? PHView : nil
     }
     
@@ -98,5 +111,75 @@ extension ProfileViewController: UITableViewDelegate {
         let galleryVC = PhotosViewController()
         galleryVC.title = "Photo Gallery"
         indexPath.section == 0 ? navigationController?.pushViewController(galleryVC, animated: true) : nil
+    }
+}
+
+// MARK: - Обработка касания на аватар
+
+extension ProfileViewController {
+
+    @objc func fullscreenImage() {
+        
+        /*
+        let header = ProfileHeaderView()
+        
+        header.avatarImageView.isUserInteractionEnabled = true
+        header.viewForAvatar.frame = UIScreen.main.bounds
+        header.avatarImageView.centerXAnchor.constraint(equalTo: header.viewForAvatar.centerXAnchor).isActive = true
+        header.avatarImageView.centerYAnchor.constraint(equalTo: header.viewForAvatar.centerYAnchor).isActive = true
+        header.avatarImageView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width).isActive = true
+        header.avatarImageView.heightAnchor.constraint(equalTo: header.avatarImageView.widthAnchor).isActive = true
+        
+        self.view.addSubview(header.viewForAvatar)
+        self.view.addSubview(header.avatarImageView)
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissFullscreenImage))
+        header.avatarImageView.addGestureRecognizer(tap)
+         */
+         
+        
+        //создаем новый UIImageView и UIView
+        //userImage это свойство созданное в ProfileViewController. Напрямую передать его в метод не можем понятно почему (@objc)
+        let bigAvatarImageView = UIImageView(image: userImage)
+        let bigViewForAvatar = userView
+        
+        //размерчики
+        bigViewForAvatar.frame = UIScreen.main.bounds
+        bigViewForAvatar.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.8)
+
+        bigAvatarImageView.frame = UIScreen.main.bounds
+        bigAvatarImageView.contentMode = .scaleAspectFit
+        
+        //отображаем
+        bigViewForAvatar.addSubview(bigAvatarImageView)
+        self.view.addSubview(bigViewForAvatar)
+        
+        //Кнопка для закрытия фото
+        let button: UIButton = {
+            let button = UIButton()
+            button.setImage(UIImage(systemName: "xmark"), for: .normal)
+            button.tintColor = .black
+            button.translatesAutoresizingMaskIntoConstraints = false
+            return button
+        }()
+        
+        bigViewForAvatar.addSubview(button)
+        button.topAnchor.constraint(equalTo: bigViewForAvatar.topAnchor, constant: 20).isActive = true
+        button.trailingAnchor.constraint(equalTo: bigViewForAvatar.trailingAnchor, constant: 20).isActive = true
+        
+        //вот эта штука нужна чтоб новая вью реагировала на нажатия
+        bigAvatarImageView.isUserInteractionEnabled = true
+        
+        // создаем опознаватель жестов для новой вью
+        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissFullscreenImage))
+        
+        //при нажатии закроется
+        bigAvatarImageView.addGestureRecognizer(tap)
+        
+    }
+    
+    //закрываем
+    @objc func dismissFullscreenImage(_ sender: UITapGestureRecognizer) {
+        sender.view?.removeFromSuperview()
     }
 }

@@ -14,7 +14,6 @@ class ProfileHeaderView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupPHView()
-        setupGesters()
     }
     
     required init?(coder: NSCoder) {
@@ -112,21 +111,6 @@ class ProfileHeaderView: UIView {
      
     // MARK: - Настройка объектов
     
-    private var topView = NSLayoutConstraint()
-    private var leadingView = NSLayoutConstraint()
-    private var heightView = NSLayoutConstraint()
-    private var widthView = NSLayoutConstraint()
-
-//    private var centerXAvatarImageView = NSLayoutConstraint()
-//    private var centerYAvatarImageView = NSLayoutConstraint()
-//    private var heightAvatarImageView = NSLayoutConstraint()
-//    private var widthAvatarImageView = NSLayoutConstraint()
-
-//    private var topAvatarImageView = NSLayoutConstraint()
-//    private var leadingAvatarImageView = NSLayoutConstraint()
-//    private var bottomAvatarImageView = NSLayoutConstraint()
-//    private var trailingAvatarImageView = NSLayoutConstraint()
-    
     private func setupPHView() {
         [viewForAvatar, avatarImageView, stackView, setStatusButton].forEach { addSubview($0) }
         [fullNameLabel, statusLabel, statusTextField].forEach { stackView.addArrangedSubview($0) }
@@ -134,16 +118,11 @@ class ProfileHeaderView: UIView {
         lazy var constr: CGFloat = 16
         lazy var photoConstr: CGFloat = 150
         
-        topView = viewForAvatar.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor)
-        leadingView = viewForAvatar.leftAnchor.constraint(equalTo: safeAreaLayoutGuide.leftAnchor, constant: constr)
-        heightView = viewForAvatar.heightAnchor.constraint(equalToConstant: photoConstr)
-        widthView = viewForAvatar.widthAnchor.constraint(equalToConstant: photoConstr)
-
         NSLayoutConstraint.activate([
-            topView,
-            leadingView,
-            heightView,
-            widthView,
+            viewForAvatar.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+            viewForAvatar.leftAnchor.constraint(equalTo: safeAreaLayoutGuide.leftAnchor, constant: constr),
+            viewForAvatar.heightAnchor.constraint(equalToConstant: photoConstr),
+            viewForAvatar.widthAnchor.constraint(equalToConstant: photoConstr),
             
             avatarImageView.topAnchor.constraint(equalTo: viewForAvatar.topAnchor),
             avatarImageView.leftAnchor.constraint(equalTo: viewForAvatar.leftAnchor),
@@ -161,29 +140,5 @@ class ProfileHeaderView: UIView {
             setStatusButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -constr),
             setStatusButton.heightAnchor.constraint(equalToConstant: 50)
         ])
-    }
-
-//    MARK: - Анимация
-    
-    func setupGesters() {
-        let tapGester = UITapGestureRecognizer(target: ProfileViewController.self, action: #selector(tapAction))
-        avatarImageView.addGestureRecognizer(tapGester)
-        viewForAvatar.addGestureRecognizer(tapGester)
-    }
-    
-    @objc private func tapAction() {
-        print("Сработало")
-//        topView = viewForAvatar.topAnchor.constraint(equalTo: topAnchor)
-//        leadingView = viewForAvatar.leftAnchor.constraint(equalTo: leftAnchor)
-//        heightView = viewForAvatar.heightAnchor.constraint(equalTo: heightAnchor)
-//        widthView = viewForAvatar.widthAnchor.constraint(equalTo: widthAnchor)
-            
-//            avatarImageView.centerYAnchor.constraint(equalTo: centerYAnchor),
-//            avatarImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
-//            avatarImageView.widthAnchor.constraint(equalTo: widthAnchor),
-//            avatarImageView.heightAnchor.constraint(equalTo: avatarImageView.widthAnchor)
-        heightView.constant = 100
-        widthView.constant = 100
-        
     }
 }
