@@ -72,12 +72,10 @@ class LogInViewController: UIViewController {
     
     private lazy var button: UIButton = {
         let button = UIButton()
-        
         button.setTitle("Log in", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.clipsToBounds = true
         button.setBackgroundImage(UIImage(named: "blue_pixel"), for: .normal)
-        
         switch button.state {
         case .normal:
             button.alpha = 1
@@ -90,17 +88,53 @@ class LogInViewController: UIViewController {
         default:
             button.alpha = 1
         }
-        
-        button.addTarget(self, action: #selector(tap), for: .touchUpInside)
-            
         button.layer.cornerRadius = 10
         button.translatesAutoresizingMaskIntoConstraints = false
-        
+        button.addTarget(self, action: #selector(tap), for: .touchUpInside)
         return button
     }()
     
     @objc private func tap() {
         let profileVC = ProfileViewController()
+        
+//      Проверка на заполненность
+        guard loginTextField.text?.isEmpty == false else { return loginTextField.attributedPlaceholder = NSAttributedString(string: "Email or phone", attributes: [NSAttributedString.Key.foregroundColor: UIColor.red]) }
+        guard passTextField.text?.isEmpty == false else { return passTextField.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSAttributedString.Key.foregroundColor: UIColor.red]) }
+
+//      Проверка на корректность логина
+        guard loginTextField.text == "standartlogin" else {
+            let alert = UIAlertController(title: "Неверный логин", message: "Введеный логин не верен", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "Ок", style: .default)
+            alert.addAction(okAction)
+            return present(alert, animated: true)
+        }
+        
+//      Проверка на кол-во символов
+        guard passTextField.text?.count ?? 0 >= 8 else {
+            func createAletLabel() {
+                let aletLabel: UILabel = {
+                    let aletLabel = UILabel()
+                    aletLabel.text = "Пароль короче 8 символов"
+                    aletLabel.textColor = .red
+                    aletLabel.translatesAutoresizingMaskIntoConstraints = false
+                    return aletLabel
+                }()
+                self.view.addSubview(aletLabel)
+                NSLayoutConstraint.activate([
+                    aletLabel.topAnchor.constraint(equalTo: button.bottomAnchor, constant: 16),
+                    aletLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor)
+                ])
+            }
+            return createAletLabel()
+        }
+        
+        //      Проверка на корректность пароля
+        guard passTextField.text == "standartpassword" else {
+            let alert = UIAlertController(title: "Неверный пароль", message: "Введеный пароль не верен", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "Ок", style: .default)
+            alert.addAction(okAction)
+            return present(alert, animated: true)
+        }
         navigationController?.pushViewController(profileVC, animated: true)
     }
     
