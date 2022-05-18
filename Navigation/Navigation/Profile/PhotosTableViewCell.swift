@@ -22,8 +22,8 @@ class PhotosTableViewCell: UITableViewCell {
         
 //    MARK: - Создание и настройка объектов
     
-    private let label: UILabel = {
-        let label = UILabel()
+    private lazy var label: UILabel = {
+        lazy var label = UILabel()
         label.text = "Photos"
         label.textColor = .black
         label.font = .systemFont(ofSize: 24, weight: .bold)
@@ -31,8 +31,8 @@ class PhotosTableViewCell: UITableViewCell {
         return label
     }()
     
-    private let button: UIButton = {
-        let button = UIButton()
+    private lazy var button: UIButton = {
+        lazy var button = UIButton()
         button.setImage(UIImage(systemName: "arrow.right"), for: .normal)
         button.tintColor = .black
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -42,9 +42,9 @@ class PhotosTableViewCell: UITableViewCell {
 //    MARK: - Коллекция
     
     private lazy var collectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
+        lazy var layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -57,7 +57,7 @@ class PhotosTableViewCell: UITableViewCell {
     private func layout() {
         [label, button, collectionView].forEach { contentView.addSubview($0) }
         
-        let constr: CGFloat = 12
+        lazy var constr: CGFloat = 12
                         
         NSLayoutConstraint.activate([
             label.topAnchor.constraint(equalTo: contentView.topAnchor, constant: constr),
@@ -83,7 +83,7 @@ extension PhotosTableViewCell: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CustomCollectionViewCell.identifier, for: indexPath) as! CustomCollectionViewCell
+        lazy var cell = collectionView.dequeueReusableCell(withReuseIdentifier: CustomCollectionViewCell.identifier, for: indexPath) as! CustomCollectionViewCell
         cell.pullCell(photo: photoGalery[indexPath.row])
         return cell
     }
@@ -98,7 +98,7 @@ extension PhotosTableViewCell: UICollectionViewDelegateFlowLayout {
     private var interSpace: CGFloat { return 10 }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = (collectionView.bounds.width - interSpace * 3) / 4
+        lazy var width = (collectionView.bounds.width - interSpace * 3) / 4
         return CGSize(width: width, height: width)
     }
 }

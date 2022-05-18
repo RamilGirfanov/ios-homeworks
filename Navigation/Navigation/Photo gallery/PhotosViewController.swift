@@ -19,8 +19,8 @@ class PhotosViewController: UIViewController {
 //    MARK: - Создание, настройка и размещение коллекции
 
     private lazy var collectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        lazy var layout = UICollectionViewFlowLayout()
+        lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.register(PhotosCollectionViewCell.self, forCellWithReuseIdentifier: PhotosCollectionViewCell.identifier)
@@ -44,7 +44,7 @@ class PhotosViewController: UIViewController {
 
 extension PhotosViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotosCollectionViewCell.identifier, for: indexPath) as! PhotosCollectionViewCell
+        lazy var cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotosCollectionViewCell.identifier, for: indexPath) as! PhotosCollectionViewCell
         cell.pullCell(photo: photoGalery[indexPath.item])
         return cell
     }
@@ -60,7 +60,7 @@ extension PhotosViewController: UICollectionViewDelegateFlowLayout {
     private var interSpace: CGFloat { return 8 }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = (collectionView.bounds.width - interSpace * 4) / 3
+        lazy var width = (collectionView.bounds.width - interSpace * 4) / 3
         return CGSize(width: width, height: width)
     }
     

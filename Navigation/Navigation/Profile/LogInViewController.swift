@@ -18,7 +18,7 @@ class LogInViewController: UIViewController {
 
 //    MARK: - Создание UI объектов
     
-    private let logoImage: UIImageView = {
+    private lazy var logoImage: UIImageView = {
         let logoImage = UIImageView()
         logoImage.image = UIImage(named: "logo")
         logoImage.translatesAutoresizingMaskIntoConstraints = false
@@ -58,7 +58,7 @@ class LogInViewController: UIViewController {
         return passTextField
     }()
     
-    private let stack: UIStackView = {
+    private lazy var stack: UIStackView = {
         let stack = UIStackView()
         stack.axis = .vertical
         stack.distribution = .fillEqually
@@ -95,7 +95,8 @@ class LogInViewController: UIViewController {
     }()
     
     @objc private func tap() {
-        let profileVC = ProfileViewController()
+        lazy var profileVC = ProfileViewController()
+//        profileVC.navigationItem.title = "Profile"
         
 //      Проверка на заполненность
         guard loginTextField.text?.isEmpty == false else { return loginTextField.attributedPlaceholder = NSAttributedString(string: "Email or phone", attributes: [NSAttributedString.Key.foregroundColor: UIColor.red]) }
@@ -103,8 +104,8 @@ class LogInViewController: UIViewController {
 
 //      Проверка на корректность логина
         guard loginTextField.text == "standartlogin" else {
-            let alert = UIAlertController(title: "Неверный логин", message: "Введеный логин не верен", preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "Ок", style: .default)
+            lazy var alert = UIAlertController(title: "Неверный логин", message: "Введеный логин не верен", preferredStyle: .alert)
+            lazy var okAction = UIAlertAction(title: "Ок", style: .default)
             alert.addAction(okAction)
             return present(alert, animated: true)
         }
@@ -112,7 +113,7 @@ class LogInViewController: UIViewController {
 //      Проверка на кол-во символов
         guard passTextField.text?.count ?? 0 >= 8 else {
             func createAletLabel() {
-                let aletLabel: UILabel = {
+                lazy var aletLabel: UILabel = {
                     let aletLabel = UILabel()
                     aletLabel.text = "Пароль короче 8 символов"
                     aletLabel.textColor = .red
@@ -130,8 +131,8 @@ class LogInViewController: UIViewController {
         
         //      Проверка на корректность пароля
         guard passTextField.text == "standartpassword" else {
-            let alert = UIAlertController(title: "Неверный пароль", message: "Введеный пароль не верен", preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "Ок", style: .default)
+            lazy var alert = UIAlertController(title: "Неверный пароль", message: "Введеный пароль не верен", preferredStyle: .alert)
+            lazy var okAction = UIAlertAction(title: "Ок", style: .default)
             alert.addAction(okAction)
             return present(alert, animated: true)
         }
@@ -140,13 +141,13 @@ class LogInViewController: UIViewController {
     
 //    MARK: - Создание КонтентВью и СкроллВью
     
-    private let contentView: UIView = {
+    private lazy var contentView: UIView = {
         let contentView = UIView()
         contentView.translatesAutoresizingMaskIntoConstraints = false
         return contentView
     }()
     
-    private let scrollView: UIScrollView = {
+    private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         return scrollView

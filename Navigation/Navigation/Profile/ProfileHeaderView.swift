@@ -9,6 +9,17 @@ import UIKit
 
 class ProfileHeaderView: UIView {
     
+//    MARK: - Инициализатор
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupPHView()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     // MARK: - Создание объектов
     
     private let avatarImageView: UIImageView = {
@@ -76,6 +87,18 @@ class ProfileHeaderView: UIView {
         setStatusButton.translatesAutoresizingMaskIntoConstraints = false
         return setStatusButton
     }()
+    
+//    MARK: - Настройка кнопки
+    
+    @objc private func tap() {
+        
+//      Проверка на заполненность
+        guard statusTextField.text?.isEmpty == false else { return statusTextField.attributedPlaceholder = NSAttributedString(string: "Введите статус", attributes: [NSAttributedString.Key.foregroundColor: UIColor.red]) }
+        statusLabel.text = statusTextField.text
+        statusTextField.text = ""
+        statusTextField.attributedPlaceholder = NSAttributedString(string: "Введите статус", attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemGray5])
+        print("Статус установлен")
+    }
      
     // MARK: - Настройка объектов
     
@@ -105,24 +128,5 @@ class ProfileHeaderView: UIView {
             setStatusButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -constr),
             setStatusButton.heightAnchor.constraint(equalToConstant: 50)
         ])
-    }
-    
-//    MARK: - Настройка кнопки
-    
-    @objc private func tap() {
-        statusLabel.text = statusTextField.text
-        statusTextField.text = ""
-        print("Статус установлен")
-    }
-    
-//    MARK: - Инициализатор
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setupPHView()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
 }

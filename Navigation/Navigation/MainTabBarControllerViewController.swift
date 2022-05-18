@@ -15,16 +15,15 @@ class MainTabBarControllerViewController: UITabBarController {
     }
 
     private let feedVC = FeedViewController()
-    private let profileVC = LogInViewController()
+    private let loginVC = LogInViewController()
 
     private func setupController() {
         let firstNC = UINavigationController(rootViewController: feedVC)
-        let secondNC = UINavigationController(rootViewController: profileVC)
+        let secondNC = UINavigationController(rootViewController: loginVC)
         firstNC.tabBarItem.title = "Лента"
         firstNC.tabBarItem.image = UIImage(systemName: "newspaper")
         secondNC.tabBarItem.title = "Профиль"
         secondNC.tabBarItem.image = UIImage(systemName: "person")
-        profileVC.navigationItem.title = "Profile"
 
         viewControllers = [firstNC, secondNC]
     }
