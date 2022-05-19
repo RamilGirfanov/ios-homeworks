@@ -77,4 +77,35 @@ extension PhotosViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return interSpace
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        presentPhoto(indexOfPhoto: indexPath.item)
+    }
+}
+
+extension PhotosViewController {
+    func presentPhoto(indexOfPhoto: Int){
+        lazy var imageView: UIImageView = {
+            lazy var imageView = UIImageView()
+            imageView.translatesAutoresizingMaskIntoConstraints = false
+            imageView.image = photoGalery[indexOfPhoto]
+            imageView.contentMode = .scaleAspectFit
+            imageView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.8)
+            imageView.isUserInteractionEnabled = true
+            return imageView
+        }()
+
+        self.view.addSubview(imageView)
+        
+        imageView.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
+        imageView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
+        imageView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
+        imageView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+
+        lazy var tap = UITapGestureRecognizer(target: self, action: #selector(dismissFullscreenImage))
+        imageView.addGestureRecognizer(tap)
+    }
+    @objc func dismissFullscreenImage(_ sender: UITapGestureRecognizer) {
+        sender.view?.removeFromSuperview()
+    }
 }

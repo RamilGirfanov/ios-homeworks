@@ -96,15 +96,11 @@ extension ProfileViewController: UITableViewDelegate {
         return section == 0 ? UITableView.automaticDimension : 0
     }
     
+//    Обработка нажатия на ячейку
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         lazy var galleryVC = PhotosViewController()
         galleryVC.title = "Photo Gallery"
-        
-//        Для делегата
-        lazy var cell = tableView.dequeueReusableCell(withIdentifier: CustomTableViewCell.identifier, for: indexPath) as! CustomTableViewCell
-        cell.pullCell(post: posts[indexPath.row])
-        
         indexPath.section == 0 ? navigationController?.pushViewController(galleryVC, animated: true) : nil
     }
 }
