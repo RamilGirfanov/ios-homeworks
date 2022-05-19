@@ -43,6 +43,8 @@ class CustomTableViewCell: UITableViewCell {
         image.translatesAutoresizingMaskIntoConstraints = false
         image.backgroundColor = .black
         image.contentMode = .scaleAspectFit
+        image.isUserInteractionEnabled = true
+        image.addGestureRecognizer(tapOnImage)
         return image
     }()
     
@@ -81,23 +83,39 @@ class CustomTableViewCell: UITableViewCell {
         viewsLabel.translatesAutoresizingMaskIntoConstraints = false
         viewsLabel.font = .systemFont(ofSize: 16, weight: .regular)
         viewsLabel.textColor = .black
-        viewsLabel.text = "Просмотры: 0"
+        viewsLabel.text = "Просмотры: "
         return viewsLabel
+    }()
+    
+    private lazy var numberOfViews: UILabel = {
+        lazy var numberOfViews = UILabel()
+        numberOfViews.translatesAutoresizingMaskIntoConstraints = false
+        numberOfViews.font = .systemFont(ofSize: 16, weight: .regular)
+        numberOfViews.textColor = .black
+        numberOfViews.text = "0"
+        return numberOfViews
     }()
     
 //    MARK: - Обработка нажатий
     
-//    Обработка нажатия на лебл с лайками
-    lazy var tapOnLabel = UITapGestureRecognizer(target: self, action: #selector(tap))
+    //    Обработка нажатия на лебл с лайками
+    lazy var tapOnLabel = UITapGestureRecognizer(target: self, action: #selector(tapLabel))
     
-    @objc func tap() {
+    @objc func tapLabel() {
         numberOfLikes.text = reciverOfDataFromeCell?.addLikes(likesInLabel: numberOfLikes.text ?? "0")
+    }
+    
+    //    Обработка нажатия на картинку
+    lazy var tapOnImage = UITapGestureRecognizer(target: self, action: #selector(tapImage))
+    
+    @objc func tapImage() {
+        numberOfViews.text = reciverOfDataFromeCell?.showView(descriptionLabel: descriptionLabel, viewsInLabel: numberOfViews.text ?? "0")
     }
     
 //    MARK: - Расстановка объектов в ячейке
     
     private func layout() {
-        [view, authorLabel, image, descriptionLabel, likesLabel, numberOfLikes, viewsLabel].forEach { contentView.addSubview($0) }
+        [view, authorLabel, image, descriptionLabel, likesLabel, numberOfLikes, viewsLabel, numberOfViews].forEach { contentView.addSubview($0) }
         
         lazy var constr: CGFloat = 16
         
@@ -128,8 +146,12 @@ class CustomTableViewCell: UITableViewCell {
             numberOfLikes.leadingAnchor.constraint(equalTo: likesLabel.trailingAnchor),
             numberOfLikes.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -constr),
             
-            viewsLabel.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: constr),
-            viewsLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -constr),
+            numberOfViews.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: constr),
+            numberOfViews.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -constr),
+            numberOfViews.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -constr),
+            
+            viewsLabel.topAnchor.constraint(equalTo: numberOfViews.topAnchor),
+            viewsLabel.trailingAnchor.constraint(equalTo: numberOfViews.leadingAnchor),
             viewsLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -constr)
         ])
     }

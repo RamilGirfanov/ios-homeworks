@@ -57,26 +57,20 @@ extension ProfileViewController: UITableViewDataSource {
         return 2
     }
     
-    //    В зависимости от секции возвращает необхобимое количество ячеек
+//    В зависимости от секции возвращает необхобимое количество ячеек
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return section == 0 ? 1 : posts.count
     }
     
-    //    В зависимости от секции возвращает необходимый тип ячейки
+//    В зависимости от секции возвращает необходимый тип ячейки
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         lazy var cell1 = tableView.dequeueReusableCell(withIdentifier: PhotosTableViewCell.identifier, for: indexPath) as! PhotosTableViewCell
         lazy var cell2 = tableView.dequeueReusableCell(withIdentifier: CustomTableViewCell.identifier, for: indexPath) as! CustomTableViewCell
         cell2.pullCell(post: posts[indexPath.row])
         
-        
-        
-        //      Делегат
+//        Делегат
         cell2.reciverOfDataFromeCell = self
-        
-    
 
-        
-        
         return indexPath.section == 0 ? cell1 : cell2
     }
 }
@@ -107,24 +101,25 @@ extension ProfileViewController: UITableViewDelegate {
         lazy var galleryVC = PhotosViewController()
         galleryVC.title = "Photo Gallery"
         
-//      Для делегата
+//        Для делегата
         lazy var cell = tableView.dequeueReusableCell(withIdentifier: CustomTableViewCell.identifier, for: indexPath) as! CustomTableViewCell
         cell.pullCell(post: posts[indexPath.row])
         
-        indexPath.section == 0 ? navigationController?.pushViewController(galleryVC, animated: true) : showView(descriptionLabel: cell.descriptionLabel)
+        indexPath.section == 0 ? navigationController?.pushViewController(galleryVC, animated: true) : nil
     }
 }
 
 // MARK: - Расширение для делегата
 
 protocol DelegateOfReciverOfDataFromeCell {
-    func showView(descriptionLabel: UILabel)
+    func showView(descriptionLabel: UILabel, viewsInLabel: String) -> String
     func addLikes(likesInLabel: String) -> String
 }
 
 extension ProfileViewController: DelegateOfReciverOfDataFromeCell {
     
-    func showView(descriptionLabel: UILabel) {
+//    Функция показа описания
+    func showView(descriptionLabel: UILabel, viewsInLabel: String) -> String {
         
         descriptionLabel.textColor = .white
         
@@ -150,17 +145,26 @@ extension ProfileViewController: DelegateOfReciverOfDataFromeCell {
         ])
         lazy var tap = UITapGestureRecognizer(target: self, action: #selector(dismissFullscreenImage))
         viewForDataFromeCell.addGestureRecognizer(tap)
+        
+//        Функция накрутки просмотров
+        func addViews(viewsInLabel: String) -> String {
+            let views = (Int(viewsInLabel) ?? 0) + 1
+            let viewsInLabel: String
+            viewsInLabel = "\(views)"
+            return viewsInLabel
+        }
+        return addViews(viewsInLabel: viewsInLabel)
     }
+    
     @objc func dismissFullscreenImage(_ sender: UITapGestureRecognizer) {
         sender.view?.removeFromSuperview()
     }
     
-    //    Функция для лайков
+//    Функция для лайков
     func addLikes(likesInLabel: String) -> String {
         let likes = (Int(likesInLabel) ?? 0) + 1
         let likesInLabel: String
         likesInLabel = "\(likes)"
         return likesInLabel
     }
-    
 }
