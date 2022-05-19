@@ -23,12 +23,12 @@ class PostViewController: UIViewController {
     var postTitle: PostTitle?
     
     private func makeBarItem(){
-        let barItem = UIBarButtonItem(title: "Инфо", style: .plain, target: self, action: #selector(tap))
+        lazy var barItem = UIBarButtonItem(title: "Инфо", style: .plain, target: self, action: #selector(tap))
         navigationItem.rightBarButtonItem = barItem
     }
     
     @objc private func tap() {
-        let infoVC = InfoViewController()
+        lazy var infoVC = InfoViewController()
         infoVC.title = "Инфо"
         present(infoVC, animated: true)
     }

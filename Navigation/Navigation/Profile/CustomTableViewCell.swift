@@ -61,11 +61,22 @@ class CustomTableViewCell: UITableViewCell {
         likesLabel.translatesAutoresizingMaskIntoConstraints = false
         likesLabel.font = .systemFont(ofSize: 16, weight: .regular)
         likesLabel.textColor = .black
-        likesLabel.text = "Лайки: 0"
+        likesLabel.text = "Лайки: "
+        likesLabel.isUserInteractionEnabled = true
+        likesLabel.addGestureRecognizer(tapOnLabel)
         return likesLabel
     }()
     
-    private let viewsLabel: UILabel = {
+    private lazy var numberOfLikes: UILabel = {
+        lazy var numberOfLikes = UILabel()
+        numberOfLikes.translatesAutoresizingMaskIntoConstraints = false
+        numberOfLikes.font = .systemFont(ofSize: 16, weight: .regular)
+        numberOfLikes.textColor = .black
+        numberOfLikes.text = "0"
+        return numberOfLikes
+    }()
+    
+    private lazy var viewsLabel: UILabel = {
         lazy var viewsLabel = UILabel()
         viewsLabel.translatesAutoresizingMaskIntoConstraints = false
         viewsLabel.font = .systemFont(ofSize: 16, weight: .regular)
@@ -77,13 +88,16 @@ class CustomTableViewCell: UITableViewCell {
 //    MARK: - Обработка нажатий
     
 //    Обработка нажатия на лебл с лайками
+    lazy var tapOnLabel = UITapGestureRecognizer(target: self, action: #selector(tap))
     
+    @objc func tap() {
+        numberOfLikes.text = reciverOfDataFromeCell?.addLikes(likesInLabel: numberOfLikes.text ?? "0")
+    }
     
-
 //    MARK: - Расстановка объектов в ячейке
     
     private func layout() {
-        [view, authorLabel, image, descriptionLabel, likesLabel, viewsLabel].forEach { contentView.addSubview($0) }
+        [view, authorLabel, image, descriptionLabel, likesLabel, numberOfLikes, viewsLabel].forEach { contentView.addSubview($0) }
         
         lazy var constr: CGFloat = 16
         
@@ -110,6 +124,10 @@ class CustomTableViewCell: UITableViewCell {
             likesLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: constr),
             likesLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -constr),
             
+            numberOfLikes.topAnchor.constraint(equalTo: likesLabel.topAnchor),
+            numberOfLikes.leadingAnchor.constraint(equalTo: likesLabel.trailingAnchor),
+            numberOfLikes.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -constr),
+            
             viewsLabel.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: constr),
             viewsLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -constr),
             viewsLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -constr)
@@ -123,7 +141,7 @@ class CustomTableViewCell: UITableViewCell {
         authorLabel.text = post.author
         image.image = post.image
         descriptionLabel.text = post.description
-        likesLabel.text = "Likes: \(post.likes)"
+        numberOfLikes.text = "\(post.likes)"
         viewsLabel.text = "Views: \(post.views)"
     }
     

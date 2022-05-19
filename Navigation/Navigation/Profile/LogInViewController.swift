@@ -19,14 +19,14 @@ class LogInViewController: UIViewController {
 //    MARK: - Создание UI объектов
     
     private lazy var logoImage: UIImageView = {
-        let logoImage = UIImageView()
+        lazy var logoImage = UIImageView()
         logoImage.image = UIImage(named: "logo")
         logoImage.translatesAutoresizingMaskIntoConstraints = false
         return logoImage
     }()
     
     private lazy var loginTextField: UITextField = {
-        let loginTextField = UITextField()
+        lazy var loginTextField = UITextField()
         loginTextField.textColor = .black
         loginTextField.backgroundColor = .systemGray6
         loginTextField.autocapitalizationType = .none
@@ -42,7 +42,7 @@ class LogInViewController: UIViewController {
     }()
     
     private lazy var passTextField: UITextField = {
-        let passTextField = UITextField()
+        lazy var passTextField = UITextField()
         passTextField.textColor = .black
         passTextField.backgroundColor = .systemGray6
         passTextField.autocapitalizationType = .none
@@ -59,7 +59,7 @@ class LogInViewController: UIViewController {
     }()
     
     private lazy var stack: UIStackView = {
-        let stack = UIStackView()
+        lazy var stack = UIStackView()
         stack.axis = .vertical
         stack.distribution = .fillEqually
         stack.layer.cornerRadius = 10
@@ -71,7 +71,7 @@ class LogInViewController: UIViewController {
     }()
     
     private lazy var button: UIButton = {
-        let button = UIButton()
+        lazy var button = UIButton()
         button.setTitle("Log in", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.clipsToBounds = true
@@ -96,7 +96,6 @@ class LogInViewController: UIViewController {
     
     @objc private func tap() {
         lazy var profileVC = ProfileViewController()
-//        profileVC.navigationItem.title = "Profile"
         
 //      Проверка на заполненность
         guard loginTextField.text?.isEmpty == false else { return loginTextField.attributedPlaceholder = NSAttributedString(string: "Email or phone", attributes: [NSAttributedString.Key.foregroundColor: UIColor.red]) }
@@ -114,7 +113,7 @@ class LogInViewController: UIViewController {
         guard passTextField.text?.count ?? 0 >= 8 else {
             func createAletLabel() {
                 lazy var aletLabel: UILabel = {
-                    let aletLabel = UILabel()
+                    lazy var aletLabel = UILabel()
                     aletLabel.text = "Пароль короче 8 символов"
                     aletLabel.textColor = .red
                     aletLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -142,13 +141,13 @@ class LogInViewController: UIViewController {
 //    MARK: - Создание КонтентВью и СкроллВью
     
     private lazy var contentView: UIView = {
-        let contentView = UIView()
+        lazy var contentView = UIView()
         contentView.translatesAutoresizingMaskIntoConstraints = false
         return contentView
     }()
     
     private lazy var scrollView: UIScrollView = {
-        let scrollView = UIScrollView()
+        lazy var scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         return scrollView
     }()

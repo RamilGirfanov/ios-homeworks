@@ -57,20 +57,26 @@ extension ProfileViewController: UITableViewDataSource {
         return 2
     }
     
-//    В зависимости от секции возвращает необхобимое количество ячеек
+    //    В зависимости от секции возвращает необхобимое количество ячеек
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return section == 0 ? 1 : posts.count
     }
     
-//    В зависимости от секции возвращает необходимый тип ячейки
+    //    В зависимости от секции возвращает необходимый тип ячейки
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         lazy var cell1 = tableView.dequeueReusableCell(withIdentifier: PhotosTableViewCell.identifier, for: indexPath) as! PhotosTableViewCell
         lazy var cell2 = tableView.dequeueReusableCell(withIdentifier: CustomTableViewCell.identifier, for: indexPath) as! CustomTableViewCell
+        cell2.pullCell(post: posts[indexPath.row])
         
-//      Делегат
+        
+        
+        //      Делегат
         cell2.reciverOfDataFromeCell = self
         
-        cell2.pullCell(post: posts[indexPath.row])
+    
+
+        
+        
         return indexPath.section == 0 ? cell1 : cell2
     }
 }
@@ -109,13 +115,15 @@ extension ProfileViewController: UITableViewDelegate {
     }
 }
 
-
+// MARK: - Расширение для делегата
 
 protocol DelegateOfReciverOfDataFromeCell {
     func showView(descriptionLabel: UILabel)
+    func addLikes(likesInLabel: String) -> String
 }
 
 extension ProfileViewController: DelegateOfReciverOfDataFromeCell {
+    
     func showView(descriptionLabel: UILabel) {
         
         descriptionLabel.textColor = .white
@@ -146,4 +154,13 @@ extension ProfileViewController: DelegateOfReciverOfDataFromeCell {
     @objc func dismissFullscreenImage(_ sender: UITapGestureRecognizer) {
         sender.view?.removeFromSuperview()
     }
+    
+    //    Функция для лайков
+    func addLikes(likesInLabel: String) -> String {
+        let likes = (Int(likesInLabel) ?? 0) + 1
+        let likesInLabel: String
+        likesInLabel = "\(likes)"
+        return likesInLabel
+    }
+    
 }

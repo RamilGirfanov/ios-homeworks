@@ -32,5 +32,5 @@ class FeedViewController: UIViewController {
         navigationController?.pushViewController(postVC, animated: true)
     }
 
-    let postTitle = PostTitle(title: "Заголовок")
+    lazy var postTitle = PostTitle(title: "Заголовок")
 }

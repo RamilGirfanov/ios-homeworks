@@ -22,8 +22,8 @@ class ProfileHeaderView: UIView {
     
     // MARK: - Создание объектов
     
-    private let avatarImageView: UIImageView = {
-        let avatarImageView = UIImageView()
+    private lazy var avatarImageView: UIImageView = {
+        lazy var avatarImageView = UIImageView()
         avatarImageView.image = UIImage(named: "profileImage")
         avatarImageView.layer.borderWidth = 3
         avatarImageView.layer.borderColor = UIColor.white.cgColor
@@ -33,8 +33,8 @@ class ProfileHeaderView: UIView {
         return avatarImageView
     }()
     
-    private let fullNameLabel: UILabel = {
-        let fullNameLabel = UILabel()
+    private lazy var fullNameLabel: UILabel = {
+        lazy var fullNameLabel = UILabel()
         fullNameLabel.text = "Рамиль Гирфанов"
         fullNameLabel.textColor = .black
         fullNameLabel.font = .systemFont(ofSize: 18, weight: .bold)
@@ -42,8 +42,8 @@ class ProfileHeaderView: UIView {
         return fullNameLabel
     }()
     
-    private let statusLabel: UILabel = {
-        let statusLabel = UILabel()
+    private lazy var statusLabel: UILabel = {
+        lazy var statusLabel = UILabel()
         statusLabel.text = "Waiting for something..."
         statusLabel.textColor = .gray
         statusLabel.font = .systemFont(ofSize: 14, weight: .regular)
@@ -51,8 +51,8 @@ class ProfileHeaderView: UIView {
         return statusLabel
     }()
     
-    private let statusTextField: UITextField = {
-        let statusTextField = UITextField()
+    private lazy var statusTextField: UITextField = {
+        lazy var statusTextField = UITextField()
         statusTextField.placeholder = "Введите статус"
         statusTextField.textColor = .black
         statusTextField.font = .systemFont(ofSize: 15, weight: .regular)
@@ -65,8 +65,8 @@ class ProfileHeaderView: UIView {
         return statusTextField
     }()
     
-    private let stackView: UIStackView = {
-        let stackView = UIStackView()
+    private lazy var stackView: UIStackView = {
+        lazy var stackView = UIStackView()
         stackView.axis = .vertical
         stackView.spacing = 10
         stackView.distribution = .fillEqually
@@ -74,8 +74,8 @@ class ProfileHeaderView: UIView {
         return stackView
     }()
     
-    private let setStatusButton: UIButton = {
-        let setStatusButton = UIButton()
+    private lazy var setStatusButton: UIButton = {
+        lazy var setStatusButton = UIButton()
         setStatusButton.setTitle("Set status", for: .normal)
         setStatusButton.setTitleColor(.white, for: .normal)
         setStatusButton.layer.cornerRadius = 12
@@ -96,7 +96,7 @@ class ProfileHeaderView: UIView {
         guard statusTextField.text?.isEmpty == false else { return statusTextField.attributedPlaceholder = NSAttributedString(string: "Введите статус", attributes: [NSAttributedString.Key.foregroundColor: UIColor.red]) }
         statusLabel.text = statusTextField.text
         statusTextField.text = ""
-        statusTextField.attributedPlaceholder = NSAttributedString(string: "Введите статус", attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemGray5])
+        statusTextField.attributedPlaceholder = NSAttributedString(string: "Введите статус", attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemGray4])
         print("Статус установлен")
     }
      
@@ -108,8 +108,8 @@ class ProfileHeaderView: UIView {
          
         setStatusButton.addTarget(self, action: #selector(tap), for: .touchUpInside)
         
-        let constr: CGFloat = 16
-        let photoConstr: CGFloat = 150
+        lazy var constr: CGFloat = 16
+        lazy var photoConstr: CGFloat = 150
 
         NSLayoutConstraint.activate([
             avatarImageView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
