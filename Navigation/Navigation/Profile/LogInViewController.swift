@@ -96,7 +96,7 @@ class LogInViewController: UIViewController {
     
     @objc private func tap() {
         lazy var profileVC = ProfileViewController()
-        
+        /*
 //      Проверка на заполненность
         guard loginTextField.text?.isEmpty == false else { return loginTextField.attributedPlaceholder = NSAttributedString(string: "Email or phone", attributes: [NSAttributedString.Key.foregroundColor: UIColor.red]) }
         guard passTextField.text?.isEmpty == false else { return passTextField.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSAttributedString.Key.foregroundColor: UIColor.red]) }
@@ -135,6 +135,7 @@ class LogInViewController: UIViewController {
             alert.addAction(okAction)
             return present(alert, animated: true)
         }
+        */
         navigationController?.pushViewController(profileVC, animated: true)
     }
     

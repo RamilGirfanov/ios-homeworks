@@ -96,6 +96,10 @@ class CustomTableViewCell: UITableViewCell {
         return numberOfViews
     }()
     
+//    MARK: - Делегат
+    
+    var reciverOfDataFromeCell: DelegateOfReciverOfDataFromeCell?
+    
 //    MARK: - Обработка нажатий
     
     //    Обработка нажатия на лебл с лайками
@@ -166,9 +170,4 @@ class CustomTableViewCell: UITableViewCell {
         numberOfLikes.text = "\(post.likes)"
         viewsLabel.text = "Views: \(post.views)"
     }
-    
-//    MARK: - Делегат
-    
-    var reciverOfDataFromeCell: DelegateOfReciverOfDataFromeCell?
-    
 }

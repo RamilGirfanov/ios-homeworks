@@ -88,6 +88,9 @@ extension ProfileViewController: UITableViewDelegate {
 //    В зависимости от секции возвращает необходимый хедер
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         lazy var PHView = ProfileHeaderView()
+        
+//        Делегат
+        PHView.reciverOfDataFromeCell = self
         return section == 0 ? PHView : nil
     }
     
@@ -108,12 +111,42 @@ extension ProfileViewController: UITableViewDelegate {
 // MARK: - Расширение для делегата
 
 protocol DelegateOfReciverOfDataFromeCell {
+    func presentAvatar(view: UIView, avatar: UIImageView)
+        
     func showView(descriptionLabel: UILabel, viewsInLabel: String) -> String
+    
     func addLikes(likesInLabel: String) -> String
 }
 
 extension ProfileViewController: DelegateOfReciverOfDataFromeCell {
     
+    
+//    Функция показа аватара
+    func presentAvatar(view: UIView, avatar: UIImageView){
+        
+        view.layer.cornerRadius = 0
+        view.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.8)
+        
+        view.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor).isActive = true
+        view.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
+        view.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
+        view.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        
+
+        avatar.layer.cornerRadius = 0
+        avatar.layer.borderWidth = 0
+        
+        avatar.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        avatar.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        avatar.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+        avatar.heightAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+        
+
+//        lazy var tap = UITapGestureRecognizer(target: self, action: #selector(dismissFullscreenImage))
+//        myAvatar.addGestureRecognizer(tap)
+        
+    }
+
 //    Функция показа описания
     func showView(descriptionLabel: UILabel, viewsInLabel: String) -> String {
         
