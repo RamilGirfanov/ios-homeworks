@@ -113,7 +113,7 @@ class CustomTableViewCell: UITableViewCell {
     lazy var tapOnImage = UITapGestureRecognizer(target: self, action: #selector(tapImage))
     
     @objc func tapImage() {
-        numberOfViews.text = reciverOfDataFromeCell?.showView(descriptionLabel: descriptionLabel, viewsInLabel: numberOfViews.text ?? "0")
+        numberOfViews.text = reciverOfDataFromeCell?.showView(description: descriptionLabel.text ?? "Описание", viewsInLabel: numberOfViews.text ?? "0")
     }
     
 //    MARK: - Расстановка объектов в ячейке

@@ -109,46 +109,23 @@ class ProfileHeaderView: UIView {
         return setStatusButton
     }()
      
-//    MARK: - Констрейнты
-    
-    var blackViewTopAnchor = NSLayoutConstraint()
-    var blackViewLeftAnchor = NSLayoutConstraint()
-    var blackViewRightAnchor = NSLayoutConstraint()
-    var blackViewBottomAnchor = NSLayoutConstraint()
-    
-    var avatarImageViewcenterXAnchor = NSLayoutConstraint()
-    var avatarImageViewcenterYAnchor = NSLayoutConstraint()
-    var avatarImageViewWidthAnchor = NSLayoutConstraint()
-    var avatarImageViewHeightAnchor = NSLayoutConstraint()
-
-
     func setupConstraints() {
         lazy var constr: CGFloat = 16
         lazy var photoConstr: CGFloat = 150
         
-        blackViewTopAnchor = blackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor)
-        blackViewLeftAnchor = blackView.leftAnchor.constraint(equalTo: safeAreaLayoutGuide.leftAnchor, constant: constr)
-        blackViewRightAnchor = blackView.trailingAnchor.constraint(equalTo: trailingAnchor)
-        blackViewBottomAnchor = blackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor)
-        
-        avatarImageViewcenterXAnchor = avatarImageView.centerXAnchor.constraint(equalTo: blackView.centerXAnchor)
-        avatarImageViewcenterYAnchor = avatarImageView.centerYAnchor.constraint(equalTo: blackView.centerYAnchor)
-        avatarImageViewWidthAnchor = avatarImageView.widthAnchor.constraint(equalToConstant: photoConstr)
-        avatarImageViewHeightAnchor = avatarImageView.heightAnchor.constraint(equalToConstant: photoConstr)
-        
         NSLayoutConstraint.activate([
-            blackViewTopAnchor,
-            blackViewLeftAnchor,
+            blackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+            blackView.leftAnchor.constraint(equalTo: safeAreaLayoutGuide.leftAnchor, constant: constr),
             blackView.widthAnchor.constraint(equalToConstant: photoConstr),
             blackView.heightAnchor.constraint(equalToConstant: photoConstr),
             
             closeButton.topAnchor.constraint(equalTo: blackView.topAnchor, constant: 20),
             closeButton.trailingAnchor.constraint(equalTo: blackView.trailingAnchor, constant: -20),
             
-            avatarImageViewcenterXAnchor,
-            avatarImageViewcenterYAnchor,
-            avatarImageViewWidthAnchor,
-            avatarImageViewHeightAnchor,
+            avatarImageView.centerXAnchor.constraint(equalTo: blackView.centerXAnchor),
+            avatarImageView.centerYAnchor.constraint(equalTo: blackView.centerYAnchor),
+            avatarImageView.widthAnchor.constraint(equalToConstant: photoConstr),
+            avatarImageView.heightAnchor.constraint(equalToConstant: photoConstr),
             
             stackView.topAnchor.constraint(equalTo: blackView.topAnchor),
             stackView.leadingAnchor.constraint(equalTo: blackView.trailingAnchor, constant: constr),
@@ -174,11 +151,11 @@ class ProfileHeaderView: UIView {
         statusTextField.attributedPlaceholder = NSAttributedString(string: "Введите статус", attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemGray4])
         print("Статус установлен")
     }
+    
     //    MARK: - Настройка кнопки закрытия
     
     @objc private func close() {
         setupConstraints()
-        self.layoutIfNeeded()
     }
 
     //    MARK: - Настройка объектов
@@ -191,6 +168,29 @@ class ProfileHeaderView: UIView {
         closeButton.addTarget(self, action: #selector(close), for: .touchUpInside)
         
         setupConstraints()
+
+    }
+    
+//    MARK: - Функция переопределения констрейнтов по нажатию
+    
+    func presentAvatar(controllerView: UIView) {
+        
+        blackView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.8)
+        blackView.layer.cornerRadius = 0
+        avatarImageView.layer.cornerRadius = 0
+        avatarImageView.layer.borderWidth = 0
+        
+        NSLayoutConstraint.activate([
+            blackView.topAnchor.constraint(equalTo: controllerView.safeAreaLayoutGuide.topAnchor),
+            blackView.leftAnchor.constraint(equalTo: controllerView.leftAnchor),
+            blackView.trailingAnchor.constraint(equalTo: controllerView.trailingAnchor),
+            blackView.bottomAnchor.constraint(equalTo: controllerView.safeAreaLayoutGuide.bottomAnchor),
+            
+            avatarImageView.centerXAnchor.constraint(equalTo: blackView.centerXAnchor),
+            avatarImageView.centerYAnchor.constraint(equalTo: blackView.centerYAnchor),
+            avatarImageView.widthAnchor.constraint(equalTo: controllerView.widthAnchor),
+            avatarImageView.heightAnchor.constraint(equalTo: controllerView.widthAnchor),
+        ])
     }
     
 //    MARK: - Делегат
@@ -205,16 +205,16 @@ class ProfileHeaderView: UIView {
         UIView.animate(withDuration: 3,
                        delay: 0,
                        options: .curveLinear) {
-            self.reciverOfDataFromeCell?.presentAvatar(view: self.blackView, avatar: self.avatarImageView)
+            self.reciverOfDataFromeCell?.presentAvatar(presentFunc: self.presentAvatar(controllerView:))
         } completion: { _ in
             UIView.animate(withDuration: 0.3,
                            delay: 0) {
                 self.closeButton.isHidden = false
                 self.layoutIfNeeded()
             }
+            
         }
         
-//        reciverOfDataFromeCell?.presentAvatar(view: blackView, avatar: avatarImageView)
     }
     
 }

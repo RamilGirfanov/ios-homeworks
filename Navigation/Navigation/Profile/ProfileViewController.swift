@@ -111,47 +111,23 @@ extension ProfileViewController: UITableViewDelegate {
 // MARK: - Расширение для делегата
 
 protocol DelegateOfReciverOfDataFromeCell {
-    func presentAvatar(view: UIView, avatar: UIImageView)
+    func presentAvatar(presentFunc: (_ controllerView: UIView) -> ())
         
-    func showView(descriptionLabel: UILabel, viewsInLabel: String) -> String
+    func showView(description: String, viewsInLabel: String) -> String
     
     func addLikes(likesInLabel: String) -> String
 }
 
 extension ProfileViewController: DelegateOfReciverOfDataFromeCell {
     
-    
 //    Функция показа аватара
-    func presentAvatar(view: UIView, avatar: UIImageView){
-        
-        view.layer.cornerRadius = 0
-        view.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.8)
-        
-        view.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor).isActive = true
-        view.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
-        view.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
-        view.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor).isActive = true
-        
-
-        avatar.layer.cornerRadius = 0
-        avatar.layer.borderWidth = 0
-        
-        avatar.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        avatar.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        avatar.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
-        avatar.heightAnchor.constraint(equalTo: view.widthAnchor).isActive = true
-        
-
-//        lazy var tap = UITapGestureRecognizer(target: self, action: #selector(dismissFullscreenImage))
-//        myAvatar.addGestureRecognizer(tap)
-        
+    func presentAvatar(presentFunc: (_ controllerView: UIView) -> ()){
+        presentFunc(self.view)
     }
 
 //    Функция показа описания
-    func showView(descriptionLabel: UILabel, viewsInLabel: String) -> String {
-        
-        descriptionLabel.textColor = .white
-        
+    func showView(description: String, viewsInLabel: String) -> String {
+                
         lazy var viewForDataFromeCell: UIView = {
             lazy var viewForDataFromeCell = UIView()
             viewForDataFromeCell.backgroundColor = .black
@@ -160,8 +136,16 @@ extension ProfileViewController: DelegateOfReciverOfDataFromeCell {
             return viewForDataFromeCell
         }()
         
+        lazy var descriptionForImage: UILabel = {
+            lazy var descriptionForImage = UILabel()
+            descriptionForImage.translatesAutoresizingMaskIntoConstraints = false
+            descriptionForImage.text = description
+            descriptionForImage.textColor = .white
+            return descriptionForImage
+        }()
+        
         self.view.addSubview(viewForDataFromeCell)
-        viewForDataFromeCell.addSubview(descriptionLabel)
+        viewForDataFromeCell.addSubview(descriptionForImage)
         
         NSLayoutConstraint.activate([
             viewForDataFromeCell.topAnchor.constraint(equalTo: self.view.topAnchor),
@@ -169,9 +153,10 @@ extension ProfileViewController: DelegateOfReciverOfDataFromeCell {
             viewForDataFromeCell.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
             viewForDataFromeCell.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
             
-            descriptionLabel.centerXAnchor.constraint(equalTo: viewForDataFromeCell.centerXAnchor),
-            descriptionLabel.centerYAnchor.constraint(equalTo: viewForDataFromeCell.centerYAnchor)
+            descriptionForImage.centerXAnchor.constraint(equalTo: viewForDataFromeCell.centerXAnchor),
+            descriptionForImage.centerYAnchor.constraint(equalTo: viewForDataFromeCell.centerYAnchor)
         ])
+        
         lazy var tap = UITapGestureRecognizer(target: self, action: #selector(dismissFullscreenImage))
         viewForDataFromeCell.addGestureRecognizer(tap)
         
