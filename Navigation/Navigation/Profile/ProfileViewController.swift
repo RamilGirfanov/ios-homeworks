@@ -108,41 +108,49 @@ extension ProfileViewController: UITableViewDelegate {
 // MARK: - Расширение для делегата
 
 protocol DelegateOfReciverOfDataFromeCell {
-    func showView(descriptionLabel: UILabel, viewsInLabel: String) -> String
+    func showView(description: String, viewsInLabel: String) -> String
+    
     func addLikes(likesInLabel: String) -> String
 }
 
 extension ProfileViewController: DelegateOfReciverOfDataFromeCell {
     
-//    Функция показа описания
-    func showView(descriptionLabel: UILabel, viewsInLabel: String) -> String {
-        
-        descriptionLabel.textColor = .white
-        
-        lazy var viewForDataFromeCell: UIView = {
-            lazy var viewForDataFromeCell = UIView()
-            viewForDataFromeCell.backgroundColor = .black
-            viewForDataFromeCell.alpha = 0.8
-            viewForDataFromeCell.translatesAutoresizingMaskIntoConstraints = false
-            return viewForDataFromeCell
-        }()
-        
-        self.view.addSubview(viewForDataFromeCell)
-        viewForDataFromeCell.addSubview(descriptionLabel)
-        
-        NSLayoutConstraint.activate([
-            viewForDataFromeCell.topAnchor.constraint(equalTo: self.view.topAnchor),
-            viewForDataFromeCell.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-            viewForDataFromeCell.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-            viewForDataFromeCell.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+    //    Функция показа описания
+        func showView(description: String, viewsInLabel: String) -> String {
+                    
+            lazy var viewForDataFromeCell: UIView = {
+                lazy var viewForDataFromeCell = UIView()
+                viewForDataFromeCell.backgroundColor = .black
+                viewForDataFromeCell.alpha = 0.8
+                viewForDataFromeCell.translatesAutoresizingMaskIntoConstraints = false
+                return viewForDataFromeCell
+            }()
             
-            descriptionLabel.centerXAnchor.constraint(equalTo: viewForDataFromeCell.centerXAnchor),
-            descriptionLabel.centerYAnchor.constraint(equalTo: viewForDataFromeCell.centerYAnchor)
-        ])
-        lazy var tap = UITapGestureRecognizer(target: self, action: #selector(dismissFullscreenImage))
-        viewForDataFromeCell.addGestureRecognizer(tap)
-        
-//        Функция накрутки просмотров
+            lazy var descriptionForImage: UILabel = {
+                lazy var descriptionForImage = UILabel()
+                descriptionForImage.translatesAutoresizingMaskIntoConstraints = false
+                descriptionForImage.text = description
+                descriptionForImage.textColor = .white
+                return descriptionForImage
+            }()
+            
+            self.view.addSubview(viewForDataFromeCell)
+            viewForDataFromeCell.addSubview(descriptionForImage)
+            
+            NSLayoutConstraint.activate([
+                viewForDataFromeCell.topAnchor.constraint(equalTo: self.view.topAnchor),
+                viewForDataFromeCell.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+                viewForDataFromeCell.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+                viewForDataFromeCell.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+                
+                descriptionForImage.centerXAnchor.constraint(equalTo: viewForDataFromeCell.centerXAnchor),
+                descriptionForImage.centerYAnchor.constraint(equalTo: viewForDataFromeCell.centerYAnchor)
+            ])
+            
+            lazy var tap = UITapGestureRecognizer(target: self, action: #selector(dismissFullscreenImage))
+            viewForDataFromeCell.addGestureRecognizer(tap)
+            
+    //        Функция накрутки просмотров
         func addViews(viewsInLabel: String) -> String {
             let views = (Int(viewsInLabel) ?? 0) + 1
             let viewsInLabel: String

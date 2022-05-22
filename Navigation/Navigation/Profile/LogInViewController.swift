@@ -95,6 +95,7 @@ class LogInViewController: UIViewController {
     }()
     
     @objc private func tap() {
+        
         lazy var profileVC = ProfileViewController()
         
 //      Проверка на заполненность
