@@ -164,7 +164,7 @@ class CustomTableViewCell: UITableViewCell {
         image.image = post.image
         descriptionLabel.text = post.description
         numberOfLikes.text = "\(post.likes)"
-        viewsLabel.text = "Views: \(post.views)"
+        numberOfViews.text = "\(post.views)"
     }
     
 //    MARK: - Делегат

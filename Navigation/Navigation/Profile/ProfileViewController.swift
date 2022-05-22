@@ -151,13 +151,12 @@ extension ProfileViewController: DelegateOfReciverOfDataFromeCell {
             viewForDataFromeCell.addGestureRecognizer(tap)
             
     //        Функция накрутки просмотров
-        func addViews(viewsInLabel: String) -> String {
-            let views = (Int(viewsInLabel) ?? 0) + 1
-            let viewsInLabel: String
-            viewsInLabel = "\(views)"
-            return viewsInLabel
+        func addViews(oldViewsInLabel: String) -> String {
+            let views = (Int(oldViewsInLabel) ?? 0) + 1
+            let newViewsInLabel = "\(views)"
+            return newViewsInLabel
         }
-        return addViews(viewsInLabel: viewsInLabel)
+        return addViews(oldViewsInLabel: viewsInLabel)
     }
     
     @objc func dismissFullscreenImage(_ sender: UITapGestureRecognizer) {
@@ -167,8 +166,7 @@ extension ProfileViewController: DelegateOfReciverOfDataFromeCell {
 //    Функция для лайков
     func addLikes(likesInLabel: String) -> String {
         let likes = (Int(likesInLabel) ?? 0) + 1
-        let likesInLabel: String
-        likesInLabel = "\(likes)"
+        let likesInLabel = "\(likes)"
         return likesInLabel
     }
 }
