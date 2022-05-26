@@ -19,8 +19,8 @@ class PhotosViewController: UIViewController {
 //    MARK: - Создание, настройка и размещение коллекции
 
     private lazy var collectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        lazy var layout = UICollectionViewFlowLayout()
+        lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.register(PhotosCollectionViewCell.self, forCellWithReuseIdentifier: PhotosCollectionViewCell.identifier)
@@ -44,7 +44,7 @@ class PhotosViewController: UIViewController {
 
 extension PhotosViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotosCollectionViewCell.identifier, for: indexPath) as! PhotosCollectionViewCell
+        lazy var cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotosCollectionViewCell.identifier, for: indexPath) as! PhotosCollectionViewCell
         cell.pullCell(photo: photoGalery[indexPath.item])
         return cell
     }
@@ -60,7 +60,7 @@ extension PhotosViewController: UICollectionViewDelegateFlowLayout {
     private var interSpace: CGFloat { return 8 }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = (collectionView.bounds.width - interSpace * 4) / 3
+        lazy var width = (collectionView.bounds.width - interSpace * 4) / 3
         return CGSize(width: width, height: width)
     }
     
@@ -76,5 +76,36 @@ extension PhotosViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return interSpace
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        presentPhoto(indexOfPhoto: indexPath.item)
+    }
+}
+
+extension PhotosViewController {
+    func presentPhoto(indexOfPhoto: Int){
+        lazy var imageView: UIImageView = {
+            lazy var imageView = UIImageView()
+            imageView.translatesAutoresizingMaskIntoConstraints = false
+            imageView.image = photoGalery[indexOfPhoto]
+            imageView.contentMode = .scaleAspectFit
+            imageView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.8)
+            imageView.isUserInteractionEnabled = true
+            return imageView
+        }()
+
+        self.view.addSubview(imageView)
+        
+        imageView.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
+        imageView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
+        imageView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
+        imageView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+
+        lazy var tap = UITapGestureRecognizer(target: self, action: #selector(dismissFullscreenImage))
+        imageView.addGestureRecognizer(tap)
+    }
+    @objc func dismissFullscreenImage(_ sender: UITapGestureRecognizer) {
+        sender.view?.removeFromSuperview()
     }
 }

@@ -17,10 +17,10 @@ struct Post: PostModel {
 
 // MARK: - Создание публикаций и массива из них
 
-let post1 = Post(author: "Рамиль Гирфанов", description: "Ночной город", image: UIImage(named: "IM1")!, likes: 10, views: 29)
-let post2 = Post(author: "Рамиль Гирфанов", description: "Зимняя сказка", image: UIImage(named: "IM2")!, likes: 22, views: 40)
-let post3 = Post(author: "Рамиль Гирфанов", description: "Памятник геологам Якутии", image: UIImage(named: "IM3")!, likes: 18, views: 34)
-let post4 = Post(author: "Рамиль Гирфанов", description: "Над облаками", image: UIImage(named: "IM4")!, likes: 15, views: 36)
+var post1 = Post(author: "Рамиль Гирфанов", description: "Ночной город", image: UIImage(named: "IM1")!, likes: 10, views: 29)
+var post2 = Post(author: "Рамиль Гирфанов", description: "Зимняя сказка", image: UIImage(named: "IM2")!, likes: 22, views: 40)
+var post3 = Post(author: "Рамиль Гирфанов", description: "Памятник геологам Якутии", image: UIImage(named: "IM3")!, likes: 18, views: 34)
+var post4 = Post(author: "Рамиль Гирфанов", description: "Над облаками", image: UIImage(named: "IM4")!, likes: 15, views: 36)
 
-let posts = [post1, post2, post3, post4]
+var posts = [post1, post2, post3, post4]
 

@@ -28,7 +28,7 @@ class ProfileViewController: UIViewController {
 //    MARK: - Создание, настройка и размещение таблицы
     
     private lazy var tableView: UITableView = {
-        let tableView = UITableView(frame: .zero, style: .grouped)
+        lazy var tableView = UITableView(frame: .zero, style: .grouped)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.dataSource = self
         tableView.delegate = self
@@ -64,9 +64,13 @@ extension ProfileViewController: UITableViewDataSource {
     
 //    В зависимости от секции возвращает необходимый тип ячейки
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell1 = tableView.dequeueReusableCell(withIdentifier: PhotosTableViewCell.identifier, for: indexPath) as! PhotosTableViewCell
-        let cell2 = tableView.dequeueReusableCell(withIdentifier: CustomTableViewCell.identifier, for: indexPath) as! CustomTableViewCell
+        lazy var cell1 = tableView.dequeueReusableCell(withIdentifier: PhotosTableViewCell.identifier, for: indexPath) as! PhotosTableViewCell
+        lazy var cell2 = tableView.dequeueReusableCell(withIdentifier: CustomTableViewCell.identifier, for: indexPath) as! CustomTableViewCell
         cell2.pullCell(post: posts[indexPath.row])
+        
+//        Делегат
+        cell2.reciverOfDataFromeCell = self
+
         return indexPath.section == 0 ? cell1 : cell2
     }
 }
@@ -83,7 +87,7 @@ extension ProfileViewController: UITableViewDelegate {
     
 //    В зависимости от секции возвращает необходимый хедер
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let PHView = ProfileHeaderView()
+        lazy var PHView = ProfileHeaderView()
         return section == 0 ? PHView : nil
     }
     
@@ -92,10 +96,77 @@ extension ProfileViewController: UITableViewDelegate {
         return section == 0 ? UITableView.automaticDimension : 0
     }
     
+//    Обработка нажатия на ячейку
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let galleryVC = PhotosViewController()
+        lazy var galleryVC = PhotosViewController()
         galleryVC.title = "Photo Gallery"
         indexPath.section == 0 ? navigationController?.pushViewController(galleryVC, animated: true) : nil
+    }
+}
+
+// MARK: - Расширение для делегата
+
+protocol DelegateOfReciverOfDataFromeCell {
+    func showView(description: String, viewsInLabel: String) -> String
+    
+    func addLikes(likesInLabel: String) -> String
+}
+
+extension ProfileViewController: DelegateOfReciverOfDataFromeCell {
+    
+    //    Функция показа описания
+        func showView(description: String, viewsInLabel: String) -> String {
+                    
+            lazy var viewForDataFromeCell: UIView = {
+                lazy var viewForDataFromeCell = UIView()
+                viewForDataFromeCell.backgroundColor = .black
+                viewForDataFromeCell.alpha = 0.8
+                viewForDataFromeCell.translatesAutoresizingMaskIntoConstraints = false
+                return viewForDataFromeCell
+            }()
+            
+            lazy var descriptionForImage: UILabel = {
+                lazy var descriptionForImage = UILabel()
+                descriptionForImage.translatesAutoresizingMaskIntoConstraints = false
+                descriptionForImage.text = description
+                descriptionForImage.textColor = .white
+                return descriptionForImage
+            }()
+            
+            self.view.addSubview(viewForDataFromeCell)
+            viewForDataFromeCell.addSubview(descriptionForImage)
+            
+            NSLayoutConstraint.activate([
+                viewForDataFromeCell.topAnchor.constraint(equalTo: self.view.topAnchor),
+                viewForDataFromeCell.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+                viewForDataFromeCell.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+                viewForDataFromeCell.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+                
+                descriptionForImage.centerXAnchor.constraint(equalTo: viewForDataFromeCell.centerXAnchor),
+                descriptionForImage.centerYAnchor.constraint(equalTo: viewForDataFromeCell.centerYAnchor)
+            ])
+            
+            lazy var tap = UITapGestureRecognizer(target: self, action: #selector(dismissFullscreenImage))
+            viewForDataFromeCell.addGestureRecognizer(tap)
+            
+    //        Функция накрутки просмотров
+        func addViews(oldViewsInLabel: String) -> String {
+            let views = (Int(oldViewsInLabel) ?? 0) + 1
+            let newViewsInLabel = "\(views)"
+            return newViewsInLabel
+        }
+        return addViews(oldViewsInLabel: viewsInLabel)
+    }
+    
+    @objc func dismissFullscreenImage(_ sender: UITapGestureRecognizer) {
+        sender.view?.removeFromSuperview()
+    }
+    
+//    Функция для лайков
+    func addLikes(likesInLabel: String) -> String {
+        let likes = (Int(likesInLabel) ?? 0) + 1
+        let likesInLabel = "\(likes)"
+        return likesInLabel
     }
 }

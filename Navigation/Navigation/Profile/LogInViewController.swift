@@ -18,15 +18,15 @@ class LogInViewController: UIViewController {
 
 //    MARK: - Создание UI объектов
     
-    private let logoImage: UIImageView = {
-        let logoImage = UIImageView()
+    private lazy var logoImage: UIImageView = {
+        lazy var logoImage = UIImageView()
         logoImage.image = UIImage(named: "logo")
         logoImage.translatesAutoresizingMaskIntoConstraints = false
         return logoImage
     }()
     
     private lazy var loginTextField: UITextField = {
-        let loginTextField = UITextField()
+        lazy var loginTextField = UITextField()
         loginTextField.textColor = .black
         loginTextField.backgroundColor = .systemGray6
         loginTextField.autocapitalizationType = .none
@@ -42,7 +42,7 @@ class LogInViewController: UIViewController {
     }()
     
     private lazy var passTextField: UITextField = {
-        let passTextField = UITextField()
+        lazy var passTextField = UITextField()
         passTextField.textColor = .black
         passTextField.backgroundColor = .systemGray6
         passTextField.autocapitalizationType = .none
@@ -58,8 +58,8 @@ class LogInViewController: UIViewController {
         return passTextField
     }()
     
-    private let stack: UIStackView = {
-        let stack = UIStackView()
+    private lazy var stack: UIStackView = {
+        lazy var stack = UIStackView()
         stack.axis = .vertical
         stack.distribution = .fillEqually
         stack.layer.cornerRadius = 10
@@ -71,13 +71,11 @@ class LogInViewController: UIViewController {
     }()
     
     private lazy var button: UIButton = {
-        let button = UIButton()
-        
+        lazy var button = UIButton()
         button.setTitle("Log in", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.clipsToBounds = true
         button.setBackgroundImage(UIImage(named: "blue_pixel"), for: .normal)
-        
         switch button.state {
         case .normal:
             button.alpha = 1
@@ -90,30 +88,67 @@ class LogInViewController: UIViewController {
         default:
             button.alpha = 1
         }
-        
-        button.addTarget(self, action: #selector(tap), for: .touchUpInside)
-            
         button.layer.cornerRadius = 10
         button.translatesAutoresizingMaskIntoConstraints = false
-        
+        button.addTarget(self, action: #selector(tap), for: .touchUpInside)
         return button
     }()
     
     @objc private func tap() {
-        let profileVC = ProfileViewController()
+        
+        lazy var profileVC = ProfileViewController()
+        
+//      Проверка на заполненность
+        guard loginTextField.text?.isEmpty == false else { return loginTextField.attributedPlaceholder = NSAttributedString(string: "Email or phone", attributes: [NSAttributedString.Key.foregroundColor: UIColor.red]) }
+        guard passTextField.text?.isEmpty == false else { return passTextField.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSAttributedString.Key.foregroundColor: UIColor.red]) }
+
+//      Проверка на корректность логина
+        guard loginTextField.text == "standartlogin" else {
+            lazy var alert = UIAlertController(title: "Неверный логин", message: "Введеный логин не верен", preferredStyle: .alert)
+            lazy var okAction = UIAlertAction(title: "Ок", style: .default)
+            alert.addAction(okAction)
+            return present(alert, animated: true)
+        }
+        
+//      Проверка на кол-во символов
+        guard passTextField.text?.count ?? 0 >= 8 else {
+            func createAletLabel() {
+                lazy var aletLabel: UILabel = {
+                    lazy var aletLabel = UILabel()
+                    aletLabel.text = "Пароль короче 8 символов"
+                    aletLabel.textColor = .red
+                    aletLabel.translatesAutoresizingMaskIntoConstraints = false
+                    return aletLabel
+                }()
+                self.view.addSubview(aletLabel)
+                NSLayoutConstraint.activate([
+                    aletLabel.topAnchor.constraint(equalTo: button.bottomAnchor, constant: 16),
+                    aletLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor)
+                ])
+            }
+            return createAletLabel()
+        }
+        
+        //      Проверка на корректность пароля
+        guard passTextField.text == "standartpassword" else {
+            lazy var alert = UIAlertController(title: "Неверный пароль", message: "Введеный пароль не верен", preferredStyle: .alert)
+            lazy var okAction = UIAlertAction(title: "Ок", style: .default)
+            alert.addAction(okAction)
+            return present(alert, animated: true)
+        }
         navigationController?.pushViewController(profileVC, animated: true)
     }
     
 //    MARK: - Создание КонтентВью и СкроллВью
     
-    private let contentView: UIView = {
-        let contentView = UIView()
+    private lazy var contentView: UIView = {
+        lazy var contentView = UIView()
         contentView.translatesAutoresizingMaskIntoConstraints = false
         return contentView
     }()
     
-    private let scrollView: UIScrollView = {
-        let scrollView = UIScrollView()
+    private lazy var scrollView: UIScrollView = {
+        lazy var scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         return scrollView
     }()

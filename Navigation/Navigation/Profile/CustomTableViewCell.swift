@@ -22,14 +22,14 @@ class CustomTableViewCell: UITableViewCell {
             
 //    MARK: - Создание и настройка объектов для кастомизации ячейки
     
-    private let view: UIView = {
-        let view = UIView()
+    private lazy var view: UIView = {
+        lazy var view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    private let authorLabel: UILabel = {
-        let authorLabel = UILabel()
+    private lazy var authorLabel: UILabel = {
+        lazy var authorLabel = UILabel()
         authorLabel.translatesAutoresizingMaskIntoConstraints = false
         authorLabel.font = .systemFont(ofSize: 20, weight: .bold)
         authorLabel.textColor = .black
@@ -38,16 +38,18 @@ class CustomTableViewCell: UITableViewCell {
         return authorLabel
     }()
     
-    private let image: UIImageView = {
-        let image = UIImageView()
+    private lazy var image: UIImageView = {
+        lazy var image = UIImageView()
         image.translatesAutoresizingMaskIntoConstraints = false
         image.backgroundColor = .black
         image.contentMode = .scaleAspectFit
+        image.isUserInteractionEnabled = true
+        image.addGestureRecognizer(tapOnImage)
         return image
     }()
     
-    private let descriptionLabel: UILabel = {
-        let descriptionLabel = UILabel()
+    lazy var descriptionLabel: UILabel = {
+        lazy var descriptionLabel = UILabel()
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         descriptionLabel.font = .systemFont(ofSize: 14, weight: .regular)
         descriptionLabel.textColor = .systemGray
@@ -56,30 +58,66 @@ class CustomTableViewCell: UITableViewCell {
         return descriptionLabel
     }()
     
-    private let likesLabel: UILabel = {
-        let likesLabel = UILabel()
+    private lazy var likesLabel: UILabel = {
+        lazy var likesLabel = UILabel()
         likesLabel.translatesAutoresizingMaskIntoConstraints = false
         likesLabel.font = .systemFont(ofSize: 16, weight: .regular)
         likesLabel.textColor = .black
-        likesLabel.text = "Лайки: 0"
+        likesLabel.text = "Лайки: "
+        likesLabel.isUserInteractionEnabled = true
+        likesLabel.addGestureRecognizer(tapOnLabel)
         return likesLabel
     }()
     
-    private let viewsLabel: UILabel = {
-        let viewsLabel = UILabel()
+    private lazy var numberOfLikes: UILabel = {
+        lazy var numberOfLikes = UILabel()
+        numberOfLikes.translatesAutoresizingMaskIntoConstraints = false
+        numberOfLikes.font = .systemFont(ofSize: 16, weight: .regular)
+        numberOfLikes.textColor = .black
+        numberOfLikes.text = "0"
+        return numberOfLikes
+    }()
+    
+    private lazy var viewsLabel: UILabel = {
+        lazy var viewsLabel = UILabel()
         viewsLabel.translatesAutoresizingMaskIntoConstraints = false
         viewsLabel.font = .systemFont(ofSize: 16, weight: .regular)
         viewsLabel.textColor = .black
-        viewsLabel.text = "Просмотры: 0"
+        viewsLabel.text = "Просмотры: "
         return viewsLabel
     }()
-
+    
+    private lazy var numberOfViews: UILabel = {
+        lazy var numberOfViews = UILabel()
+        numberOfViews.translatesAutoresizingMaskIntoConstraints = false
+        numberOfViews.font = .systemFont(ofSize: 16, weight: .regular)
+        numberOfViews.textColor = .black
+        numberOfViews.text = "0"
+        return numberOfViews
+    }()
+    
+//    MARK: - Обработка нажатий
+    
+    //    Обработка нажатия на лебл с лайками
+    lazy var tapOnLabel = UITapGestureRecognizer(target: self, action: #selector(tapLabel))
+    
+    @objc func tapLabel() {
+        numberOfLikes.text = reciverOfDataFromeCell?.addLikes(likesInLabel: numberOfLikes.text ?? "0")
+    }
+    
+    //    Обработка нажатия на картинку
+    lazy var tapOnImage = UITapGestureRecognizer(target: self, action: #selector(tapImage))
+    
+    @objc func tapImage() {
+        numberOfViews.text = reciverOfDataFromeCell?.showView(description: descriptionLabel.text ?? "Описсание отсутствует", viewsInLabel: numberOfViews.text ?? "0")
+    }
+    
 //    MARK: - Расстановка объектов в ячейке
     
     private func layout() {
-        [view, authorLabel, image, descriptionLabel, likesLabel, viewsLabel].forEach { contentView.addSubview($0) }
+        [view, authorLabel, image, descriptionLabel, likesLabel, numberOfLikes, viewsLabel, numberOfViews].forEach { contentView.addSubview($0) }
         
-        let constr: CGFloat = 16
+        lazy var constr: CGFloat = 16
         
         NSLayoutConstraint.activate([
             view.topAnchor.constraint(equalTo: contentView.topAnchor),
@@ -104,8 +142,16 @@ class CustomTableViewCell: UITableViewCell {
             likesLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: constr),
             likesLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -constr),
             
-            viewsLabel.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: constr),
-            viewsLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -constr),
+            numberOfLikes.topAnchor.constraint(equalTo: likesLabel.topAnchor),
+            numberOfLikes.leadingAnchor.constraint(equalTo: likesLabel.trailingAnchor),
+            numberOfLikes.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -constr),
+            
+            numberOfViews.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: constr),
+            numberOfViews.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -constr),
+            numberOfViews.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -constr),
+            
+            viewsLabel.topAnchor.constraint(equalTo: numberOfViews.topAnchor),
+            viewsLabel.trailingAnchor.constraint(equalTo: numberOfViews.leadingAnchor),
             viewsLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -constr)
         ])
     }
@@ -117,7 +163,12 @@ class CustomTableViewCell: UITableViewCell {
         authorLabel.text = post.author
         image.image = post.image
         descriptionLabel.text = post.description
-        likesLabel.text = "Likes: \(post.likes)"
-        viewsLabel.text = "Views: \(post.views)"
+        numberOfLikes.text = "\(post.likes)"
+        numberOfViews.text = "\(post.views)"
     }
+    
+//    MARK: - Делегат
+    
+    var reciverOfDataFromeCell: DelegateOfReciverOfDataFromeCell?
+    
 }

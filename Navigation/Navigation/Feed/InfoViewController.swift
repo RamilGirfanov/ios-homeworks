@@ -16,7 +16,7 @@ class InfoViewController: UIViewController {
     }
     
     private func makeButton() {
-        let button = UIButton(frame: CGRect(x: 0, y: 0, width: 200, height: 50))
+        lazy var button = UIButton(frame: CGRect(x: 0, y: 0, width: 200, height: 50))
         button.center = view.center
         button.setTitle("Внимание", for: .normal)
         button.layer.cornerRadius = 12
@@ -26,11 +26,11 @@ class InfoViewController: UIViewController {
     }
     
     @objc private func tap(){
-        let alert = UIAlertController(title: "Предупреждение", message: "Предупреждаю", preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "Предупрежден", style: .default) { _ in
+        lazy var alert = UIAlertController(title: "Предупреждение", message: "Предупреждаю", preferredStyle: .alert)
+        lazy var okAction = UIAlertAction(title: "Предупрежден", style: .default) { _ in
             print("Успех")
         }
-        let canselAction = UIAlertAction(title: "Отмена", style: .destructive)
+        lazy var canselAction = UIAlertAction(title: "Отмена", style: .destructive)
         alert.addAction(okAction)
         alert.addAction(canselAction)
         present(alert, animated: true)
